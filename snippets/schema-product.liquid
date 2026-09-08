@@ -1,0 +1,58 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 300 | json }},
+  "image": {{ product.featured_image.src | image_url: 'master' | json }},
+  "offers": [
+    {%- if product.variants.size == 0 -%}
+      {
+        "@type": "Offer",
+        "url": {{ shop.url | append: product.url | json }},
+        "name": {{ product.title | json }},
+        {% if product.images != blank %}"image": {{ product.featured_image.src | json }}{% endif %} 
+        {% if product.sku != blank %}"sku": {{ product.sku | json }},{% endif %}
+        "priceCurrency": {{ shop.currency | json }},
+        "price": {{ product.price | money_without_currency | remove: ',' | json }},
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "doesNotShip": true
+        },
+        "seller": {
+          "@type": "LocalBusiness",
+          "name": "Skin Spa New York"
+        }
+      }
+    {%- else -%}
+      {%- for variant in product.variants -%}
+        {
+          "@type": "Offer",
+          "url": {{ shop.url | append: product.url | append: '?variant=' | append: variant.id | json }},
+          "name": {{ product.title | append: ' - ' | append: variant.title | json }},
+          {% if variant.sku != blank %}"sku": {{ variant.sku | json }},{% endif %}
+          "priceCurrency": {{ shop.currency | json }},
+          "price": {{ variant.price | money_without_currency | remove: ',' | json }},
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "doesNotShip": true
+          },
+          "seller": {
+            "@type": "LocalBusiness",
+            "name": "Skin Spa New York"
+          }
+        }{%- unless forloop.last -%},{% endunless %}
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+{% if product.reviews.size > 0 %}
+  {% for review in product.reviews %}
+    {% render 'schema-review' %}
+  {% endfor %}
+{% endif %}
+}
+</script>

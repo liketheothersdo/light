@@ -1,0 +1,128 @@
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-100.woff2' | asset_url }}) format("woff2");
+    font-weight: 100;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-200.woff2' | asset_url }}) format("woff2");
+    font-weight: 200;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-300.woff2' | asset_url }}) format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-400.woff2' | asset_url }}) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-700.woff2' | asset_url }}) format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-800.woff2' | asset_url }}) format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-900.woff2' | asset_url }}) format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-200i.woff2' | asset_url }}) format("woff2");
+    font-weight: 200;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-300i.woff2' | asset_url }}) format("woff2");
+    font-weight: 300;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-400i.woff2' | asset_url }}) format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-700i.woff2' | asset_url }}) format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-800i.woff2' | asset_url }}) format("woff2");
+    font-weight: 800;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "interstate";
+    src: url({{ 'inter-900i.woff2' | asset_url }}) format("woff2");
+    font-weight: 900;
+    font-style: italic;
+    font-stretch: normal;
+    font-display: swap;
+}
+
+.tk-interstate {
+    font-family: "interstate", sans-serif;
+}
+
+@font-face {
+  font-family: 'interstate-fallback';
+  src: local("sans-serif");
+  size-adjust: 53.479%;
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 20%;
+}
+
+:root {
+  --font-body-family: "interstate", "interstate-fallback", sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 700;
+
+  --font-heading-family: "interstate", "interstate-fallback", sans-serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 700;
+}

@@ -1,0 +1,37 @@
+{% if product.reviews %}
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+        "@type": "Product",
+        "name": {{ product.title }},
+        "url": {{ product.url }}
+        },
+    "author": {
+        "@type": "Person",
+        "name": {{ review.author }}
+    },
+    "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": {{ product.rating }},
+        "bestRating": "5",
+        "worstRating": 1
+          }
+    },
+  "reviewBody": 
+    {{ product.review }}
+}
+</script>
+{% endif %}
+
+{% if product.rating %}
+    <script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "aggregateRating",
+    "ratingValue": {{ product.metafields.reviews.rating }},
+    "reviewCount": {{ product.metafields.reviews.count }}
+    }
+</script>
+{% endif %}

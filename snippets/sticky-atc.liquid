@@ -1,0 +1,255 @@
+{% comment %}
+  Sticky Add-to-Cart Bar
+
+  Required render call:
+  {% render 'sticky-atc',
+    product: product,
+    section: section,
+    product_form_id: product_form_id
+  %}
+{% endcomment %}
+
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_image = current_variant.featured_image | default: product.featured_image
+%}
+
+<div
+  id="StickyATC"
+  class="sticky-atc"
+  aria-hidden="true"
+  data-product-id="{{ product.id }}"
+  data-main-product-form-id="{{ product_form_id }}"
+>
+  <div class="sticky-atc__inner">
+    {% if product_image != blank %}
+      <div class="sticky-atc__media">
+        {{
+          product_image
+          | image_url: width: 160
+          | image_tag:
+            widths: '80, 120, 160, 240',
+            sizes: '64px',
+            loading: 'lazy',
+            id: 'StickyATCImage',
+            class: 'sticky-atc__image',
+            alt: product_image.alt | default: product.title
+        }}
+      </div>
+    {% endif %}
+
+    <div class="sticky-atc__info">
+  <span class="sticky-atc__title">{{ product.title }}</span>
+
+  {% unless product.has_only_default_variant %}
+    <span
+      id="StickyATCVariant"
+      class="sticky-atc__variant"
+    >
+      {{ current_variant.title }}
+    </span>
+  {% endunless %}
+
+  <span
+    id="StickyATCPrice"
+    class="sticky-atc__price"
+  >
+    {{ current_variant.price | money }}
+  </span>
+</div>
+
+<div class="sticky-atc__form">
+  <button
+    id="StickyATCButton"
+    class="sticky-atc__btn"
+    type="button"
+    data-variant-id="{{ current_variant.id }}"
+  >
+    Add to Cart
+  </button>
+</div>
+
+  </div>
+</div>
+
+<script type="application/json" id="StickyATCProductData">
+  {{ product | json }}
+</script>
+
+<style>
+  .sticky-atc {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+
+    background: var(--sticky-atc-bg, #fff);
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.1);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(6px);
+
+    transition:
+      opacity 840ms ease,
+      transform 840ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 840ms;
+
+    will-change: transform, opacity;
+  }
+
+  .sticky-atc.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+
+    transition:
+      opacity 840ms ease,
+      transform 840ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0s;
+  }
+
+  .sticky-atc__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  .sticky-atc__media {
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+    overflow: hidden;
+
+    background: #f4f4f4;
+    border-radius: 4px;
+  }
+
+  .sticky-atc__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sticky-atc__info {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .sticky-atc__title {
+    display: -webkit-box;
+    overflow: hidden;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.25;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .sticky-atc__variant {
+  overflow: hidden;
+  color: #6b7280;
+  font-size: 0.76rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+  .sticky-atc__price {
+    color: #0e0e0e;
+    font-size: 0.85rem;
+    line-height: 1.25;
+  }
+
+  .sticky-atc__form {
+    flex: 0 0 auto;
+  }
+
+  .sticky-atc__btn {
+    min-height: 44px;
+    padding: 0.7rem 1.5rem;
+
+    color: #fff;
+    background: #0e0e0e;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+
+    transition: background-color 180ms ease;
+  }
+
+  .sticky-atc__btn:hover {
+    background: #bc9a64;
+  }
+
+  .sticky-atc__btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 749px) {
+    .sticky-atc__inner {
+      gap: 0.65rem;
+      padding:
+        0.625rem
+        1rem
+        calc(0.625rem + env(safe-area-inset-bottom));
+    }
+
+    .sticky-atc__media {
+      flex-basis: 50px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .sticky-atc__title {
+      font-size: 0.82rem;
+    }
+
+    .sticky-atc__price {
+      font-size: 0.78rem;
+    }
+
+    .sticky-atc__btn {
+      min-height: 42px;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sticky-atc__media {
+      display: none;
+    }
+
+    .sticky-atc__title {
+      -webkit-line-clamp: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-atc,
+    .sticky-atc.is-visible {
+      transition: none;
+    }
+  }
+</style>

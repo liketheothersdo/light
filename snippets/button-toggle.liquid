@@ -1,0 +1,22 @@
+{%- liquid
+  assign toggle_label = button_label | default: '&nbsp;&nbsp;View Position'
+  assign toggle_url = button_url | default: '#'
+  assign toggle_class = button_class | default: 'snippet-btn btn-hireme'
+  assign toggle_target = button_target | default: '_self'
+  assign toggle_aria_label = button_aria_label | default: toggle_label
+-%}
+
+{%- if show_button -%}
+  <a
+    href="{{ toggle_url }}"
+    class="{{ toggle_class }}"
+    {% if toggle_target %}target="{{ toggle_target }}"{% endif %}
+    {% if toggle_target == '_blank' %}rel="noopener noreferrer"{% endif %}
+    aria-label="{{ toggle_aria_label | escape }}"
+  >
+    <span class="circle" aria-hidden="true">
+      <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">&nbsp;{{ toggle_label }}</span>
+  </a>
+{%- endif -%}

@@ -1,0 +1,19 @@
+{% capture search_url_template %}{{ shop.url }}/search?q={search_term_string}{% endcapture %}
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+       "@id": {{ shop.url | append: "/#website" | json }},
+       "url": {{ shop.url | append: "/" | json }},
+       "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": {{ search_url_template | json }}
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>

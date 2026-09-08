@@ -1,0 +1,28 @@
+{%- liquid
+  assign btn_text = text | default: ' Apply Now'
+  assign btn_url = url | default: '/pages/recruitment-form'
+  assign btn_style = style | default: 'apply'
+  assign btn_target = target | default: '_self'
+  assign btn_class = class | default: 'button-apply'
+  assign btn_id = id | default: 'button-apply'
+  assign btn_aria_label = aria_label | default: btn_text
+-%}
+
+<a
+  {% if btn_id != blank %}id="{{ btn_id }}"{% endif %}
+  href="{{ btn_url }}"
+  class="{{ btn_style }} {{ btn_class }}"
+  {% if btn_target != blank %}target="{{ btn_target }}"{% endif %}
+  aria-label="{{ btn_aria_label | escape }}"
+  {% if btn_target == '_blank' %}rel="noopener noreferrer"{% endif %}
+>
+  <span class="circle" aria-hidden="true" {% if color != blank %}style="background: {{ color }}; padding-inline: 4px;"{% endif %}>
+    <span class="icon arrow"></span>
+  </span>
+
+  {%- if btn_style == 'apply' -%}
+    <span class="apply-text" style="margin-inline: 4px;">{{ btn_text }}</span>
+  {%- else -%}
+    <span class="button-text" style="margin-inline: 4px;">{{ btn_text }}</span>
+  {%- endif -%}
+</a>
