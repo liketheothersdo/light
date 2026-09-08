@@ -1,0 +1,187 @@
+#dna *, #dna {
+  box-sizing: border-box;
+  padding: 0;
+  --grid-gap: 1em;
+}
+
+#dna body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  color: #0e0e0e;
+  text-wrap: pretty;
+}
+
+#dna span {
+  text-wrap: pretty;
+}
+
+#dna .a {
+  color: #0e0e0e;
+  text-decoration: unset;
+}
+
+#dna .a:hover {
+  color: #bc9a64;
+}
+
+#dna .card-container {
+  display: grid;
+  margin: 0 10%;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
+}
+
+#dna .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #bc9a64;
+  border-radius: 16px;
+}
+
+#dna .card-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 15px;
+  text-wrap: pretty;
+}
+
+#dna .card-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 10px;
+}
+
+#dna .card-thumbnail1 {
+  width: auto;
+  min-width: 250px;
+  height: 250px;
+  border-radius: 16px 16px 0 0;
+  display: grid;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0071/6197/0758/files/salmon-DNA-facial1.jpg?v=1753471942');
+  background-size: 380px 380px;
+}
+
+#dna .card-thumbnail2 {
+  width: auto;
+  min-width: 250px;
+  height: 250px;
+  border-radius: 16px 16px 0 0;
+  display: grid;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0071/6197/0758/files/salmon-DNA-facial2.jpg?v=1753389657');
+  background-size: 370px 370px;
+}
+
+#dna .card-thumbnail3 {
+  width: auto;
+  min-width: 250px;
+  height: 250px;
+  border-radius: 16px 16px 0 0;
+  display: grid;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0071/6197/0758/files/salmon-DNA-facial3.jpg?v=1753389673');
+  background-size: 370px 370px;
+}
+
+#dna .card-thumbnail4 {
+  width: auto;
+  min-width: 250px;
+  height: 250px;
+  border-radius: 16px 16px 0 0;
+  display: grid;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0071/6197/0758/files/salmon-DNA-facial4.jpg?v=1753390929');
+  background-size: 370px 370px;
+}
+
+#dna .asset-number {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  text-align: left;
+}
+
+#dna .asset-number span {
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+#dna .card-content .type {
+  font-size: clamp(8px, 10px, .8em);
+  letter-spacing: 1px;
+  color: #a68a6a;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+#dna .card-content h2 {
+  font-size: clamp(12px, 16px, 1.2em);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+#dna .card-content .subtitle {
+  font-size: clamp(10px, 12px, 1em);
+  color: #5a5045;
+  margin-bottom: 4px;
+}
+
+#dna .card-content .description {
+  font-size: clamp(11px, 13px, .9em);
+  color: #777;
+  margin-bottom: 16px;
+}
+
+#dna .preview-button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bc9a64;
+  background-color: #f5ede4;
+  border: 1px solid #ece7e1;
+}
+
+#dna .preview-button::before {
+  content: "";
+  margin-right: 6px;
+  color: #0e0e0e;
+}
+
+#dna .go-button {
+  background-color: #bc9a64;
+  width: 40px;
+  min-width: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#dna .go-button::before {
+  content: url("https://cdn.shopify.com/s/files/1/0071/6197/0758/files/salmon-icon.svg?v=1753395588");
+}
