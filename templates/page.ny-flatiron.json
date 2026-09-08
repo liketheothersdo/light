@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "ny-flatiron",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,491 @@
+{{ 'cqp5jyy.css' | asset_url | stylesheet_tag }}
+{{ 'btn-hireme.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .job-openings-section {
+    --jo-accent: {{ section.settings.accent_color | default: '#bc9a64' }};
+    --jo-accent-rgb: 188, 154, 100;
+    --jo-bg: rgba(26, 26, 26, 0.95);
+    --jo-card-bg: rgba(255, 255, 255, 0.03);
+    --jo-card-border: rgba(255, 255, 255, 0.08);
+    --jo-text: #ffffff;
+    --jo-text-muted: #8e8e8e;
+    --jo-radius: 20px;
+
+    font-family: 'Interstate', sans-serif;
+    color: var(--jo-text);
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .job-openings__header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .job-openings__subtitle {
+    color: var(--jo-accent);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .job-openings__title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin: 0;
+    background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .job-openings__grid--columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .job-openings__grid--collage {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .job-openings__grid--collage {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .job-openings__grid--collage .job-openings__card:nth-child(3n+1) {
+      grid-column: span 2;
+    }
+
+    .job-openings__grid--collage .job-openings__card:nth-child(3n+1) .job-openings__img-wrapper {
+      height: 320px;
+    }
+  }
+
+  .job-openings__card {
+    background: var(--jo-card-bg);
+    border: 1px solid var(--jo-card-border);
+    border-radius: var(--jo-radius);
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+    backdrop-filter: blur(12px);
+    position: relative;
+  }
+
+  .job-openings__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--jo-radius);
+    padding: 1px;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .job-openings__card:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(var(--jo-accent-rgb), 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(var(--jo-accent-rgb), 0.2);
+  }
+
+  .job-openings__img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .job-openings__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .job-openings__card:hover .job-openings__img {
+    transform: scale(1.08);
+  }
+
+  .job-openings__badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .job-openings__badge {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .job-openings__badge--location {
+    background: rgba(14, 14, 14, 0.75);
+    color: var(--jo-text);
+  }
+
+  .job-openings__badge--department {
+    background: rgba(var(--jo-accent-rgb), 0.85);
+    color: var(--jo-text);
+    border-color: rgba(var(--jo-accent-rgb), 0.3);
+  }
+
+  .job-openings__content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .job-openings__details {
+    margin-bottom: 1.5rem;
+  }
+
+  .job-openings__job-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0 0 0.75rem;
+    line-height: 1.3;
+    color: #bc9a64;
+  }
+
+  .job-openings__excerpt {
+    font-size: 0.9rem;
+    color: var(--jo-text-muted);
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .job-openings__footer {
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.25rem;
+  }
+
+  .job-openings__pagination {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .job-openings__pagination-item {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--jo-text-muted);
+    border: 1px solid var(--jo-card-border);
+    transition: all 0.3s ease;
+  }
+
+  .job-openings__pagination-item:hover,
+  .job-openings__pagination-item--active {
+    color: var(--jo-text);
+    background: var(--jo-accent);
+    border-color: var(--jo-accent);
+    box-shadow: 0 4px 12px rgba(var(--jo-accent-rgb), 0.25);
+  }
+
+  .job-openings__pagination-item--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .job-openings__empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--jo-card-bg);
+    border: 1px dashed var(--jo-card-border);
+    border-radius: var(--jo-radius);
+  }
+
+  .job-openings__empty-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--jo-accent);
+  }
+
+  .job-openings__empty p {
+    color: var(--jo-text-muted);
+    margin: 0;
+  }
+{% endstyle %}
+
+<div class="job-openings-section" id="job-openings-{{ section.id }}">
+  <div class="job-openings__header">
+    <span class="job-openings__subtitle">Career Opportunities</span>
+    <h2 class="job-openings__title">Open Positions</h2>
+  </div>
+
+  {% assign recruit_blog = blogs[section.settings.blog] | default: blogs['hire-me'] %}
+
+  {% if recruit_blog != blank and recruit_blog.articles_count > 0 %}
+    {% paginate recruit_blog.articles by section.settings.jobs_per_page %}
+      <div class="job-openings__grid job-openings__grid--{{ section.settings.layout_style }}">
+        {% for article in recruit_blog.articles %}
+          <div class="job-openings__card">
+            <div class="job-openings__img-wrapper">
+              {% if article.image %}
+                <img
+                  src="{{ article.image | image_url: width: 600 }}"
+                  alt="{{ article.title | escape }}"
+                  class="job-openings__img"
+                  loading="lazy"
+                  width="600"
+                  height="400"
+                >
+              {% else %}
+                <div class="job-openings__img" style="background: linear-gradient(135deg, rgba(var(--jo-accent-rgb), 0.15) 0%, rgba(15, 23, 42, 0.4) 100%); width: 100%; height: 100%;"></div>
+              {% endif %}
+
+              {%- liquid
+                assign job_location = ''
+                assign job_department = ''
+
+                for tag in article.tags
+                  if tag contains 'location:' or tag contains 'Location:'
+                    assign parts = tag | split: ':'
+                    assign job_location = parts[1] | strip
+                  elsif tag contains 'department:' or tag contains 'Department:'
+                    assign parts = tag | split: ':'
+                    assign job_department = parts[1] | strip
+                  endif
+                endfor
+
+                if job_location == blank and article.metafields.custom.location != blank
+                  assign job_location = article.metafields.custom.location
+                endif
+
+                if job_department == blank and article.metafields.custom.department != blank
+                  assign job_department = article.metafields.custom.department
+                endif
+              -%}
+              <div class="job-openings__badges">
+                {% if section.settings.show_location and job_location != blank %}
+                  <span class="job-openings__badge job-openings__badge--location">{{ job_location }}</span>
+                {% endif %}
+                {% if section.settings.show_department and job_department != blank %}
+                  <span class="job-openings__badge job-openings__badge--department">{{ job_department }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="job-openings__content">
+              <div class="job-openings__details">
+                <div class="h3 job-openings__job-title">{{ article.title }}</div>
+                <p class="job-openings__excerpt">
+                  {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt | strip_html }}
+                  {% else %}
+                    {{ article.content | strip_html | truncatewords: 30 }}
+                  {% endif %}
+                </p>
+              </div>
+
+              <div class="job-openings__footer">
+                {%- assign button_aria_label = section.settings.button_aria_label | default: article.title -%}
+                {% render 'button-toggle',
+                  show_button: section.settings.show_button,
+                  button_url: article.url,
+                  button_label: section.settings.button_label,
+                  button_class: section.settings.button_class,
+                  button_target: section.settings.button_target,
+                  button_aria_label: button_aria_label
+                %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="job-openings__pagination">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="job-openings__pagination-item">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </a>
+          {% else %}
+            <span class="job-openings__pagination-item job-openings__pagination-item--disabled">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </span>
+          {% endif %}
+
+          {% for part in paginate.parts %}
+            {% if part.is_link %}
+              <a href="{{ part.url }}" class="job-openings__pagination-item">{{ part.title }}</a>
+            {% else %}
+              {% if part.title == paginate.current_page %}
+                <span class="job-openings__pagination-item job-openings__pagination-item--active">{{ part.title }}</span>
+              {% else %}
+                <span class="job-openings__pagination-item">{{ part.title }}</span>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="job-openings__pagination-item">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </a>
+          {% else %}
+            <span class="job-openings__pagination-item job-openings__pagination-item--disabled">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    <div class="job-openings__empty">
+      <div class="job-openings__empty-icon">💼</div>
+      <p>No job openings listed at this time. Check back soon!</p>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Job Openings",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Recruitment Blog",
+      "info": "Select the blog containing your job opening articles."
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "columns",
+          "label": "Columns (Standard Grid)"
+        },
+        {
+          "value": "collage",
+          "label": "Collage (Asymmetric Grid)"
+        }
+      ],
+      "default": "columns"
+    },
+    {
+      "type": "range",
+      "id": "jobs_per_page",
+      "min": 3,
+      "max": 9,
+      "step": 3,
+      "label": "Jobs per page",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_location",
+      "label": "Show Location Badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_department",
+      "label": "Show Department Badge",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "View Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show View Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "  View Position",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "text",
+      "id": "button_class",
+      "label": "Button CSS classes",
+      "default": "snippet-btn btn-hireme",
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "select",
+      "id": "button_target",
+      "label": "Open link in",
+      "default": "_self",
+      "options": [
+        {
+          "value": "_self",
+          "label": "Same tab"
+        },
+        {
+          "value": "_blank",
+          "label": "New tab"
+        }
+      ],
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "text",
+      "id": "button_aria_label",
+      "label": "Aria label",
+      "info": "Optional. Falls back to the article title if left blank.",
+      "visible_if": "{{ section.settings.show_button }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Job Openings"
+    }
+  ]
+}
+{% endschema %}

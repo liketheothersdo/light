@@ -1,0 +1,590 @@
+{% style %}
+.h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.footer {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  font-family: "interstate", sans-serif;
+}
+
+.footer:not(.color-scheme-1) {
+  border-top: none;
+}
+
+.footer-locations {
+  padding: 2.4rem 0;
+  font-family: "interstate", sans-serif;
+}
+
+.footer-locations .page-width {
+  margin: 0 auto;
+}
+
+.footer-locations__heading {
+  margin: 1rem 0 1.8rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer-locations__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.footer-locations__column {
+  min-width: 0;
+}
+
+.footer-locations__state {
+  margin: 2rem 0 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+}
+
+.footer-locations__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.footer-locations__item {
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  padding-bottom: 0.8rem;
+}
+
+.footer-locations__details {
+  width: 100%;
+}
+
+.footer-locations__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+
+.footer-locations__summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-locations__summary-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-locations__summary-title {
+  color: #bc9a64;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.footer-locations__summary-phone {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+  text-align: left;
+}
+
+.footer-locations__caret {
+  flex: 0 0 auto;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #bc9a64;
+  transition: transform 0.2s ease;
+}
+
+.footer-locations__details[open] .footer-locations__caret {
+  transform: rotate(180deg);
+}
+
+.footer-locations__content {
+  padding-top: 0.6rem;
+}
+
+.footer-locations__address {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+}
+
+.footer-locations__map {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #bc9a64;
+  text-decoration: unset;
+}
+
+.footer-locations__map:hover {
+  text-decoration: unset;
+}
+
+.footer-locations__link {
+    color: #cbbaa9;
+    display: inline-block;
+    margin-top: 0;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.footer-locations__link:hover,
+.footer-locations__phone:hover {
+  text-decoration: unset;
+}
+
+@media (max-width: 749px) {
+  .footer-locations__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  /* Florida (col 1) + Massachusetts (col 2) → left column */
+  .footer-locations__grid > div:nth-child(1),
+  .footer-locations__grid > div:nth-child(2) {
+    grid-column: 1;
+  }
+
+  /* New York (col 3) → right column, spans both rows */
+  .footer-locations__grid > div:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+}
+
+
+{% endstyle %}
+
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+<div class="footer-locations color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <div class="footer-locations__heading">{{ section.settings.heading }}</div>
+    {% endif %}
+
+    {%- liquid
+      assign state_1 = ''
+      assign state_2 = ''
+      assign state_3 = ''
+
+      for block in section.blocks
+        if block.type == 'state'
+          case block.settings.column
+            when '1'
+              assign state_1 = block.settings.heading
+            when '2'
+              assign state_2 = block.settings.heading
+            when '3'
+              assign state_3 = block.settings.heading
+          endcase
+        endif
+      endfor
+    -%}
+
+    <div class="footer-locations__grid">
+      <div class="footer-locations__column">
+        {% if state_1 != blank %}
+          <div class="h3 footer-locations__state">{{ state_1 }}</div>
+        {% endif %}
+        <div class="footer-locations__links">
+          {% for block in section.blocks %}
+            {% if block.type == 'location' and block.settings.column == '1' %}
+              <div class="footer-locations__item" {{ block.shopify_attributes }}>
+                <details class="footer-locations__details" name="footer-locations-accordion">
+                  <summary class="footer-locations__summary">
+                    <div class="footer-locations__summary-main">
+                      <span class="footer-locations__summary-title">{{ block.settings.label }}</span>
+                      
+                      {% if block.settings.label_phone != blank %}
+                        <span class="footer-locations__summary-phone"> {{ block.settings.label_phone }}</span>
+                      {% endif %}
+                    </div>
+                    <svg class="footer-locations__caret" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </summary>
+
+                  <div class="footer-locations__content">
+                    
+                    {% if block.settings.label_address1 != blank %}
+                      <div class="footer-locations__address">
+                        {{ block.settings.label_address1 }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.label_address2 != blank %}
+                      <div class="footer-locations__address">
+                        {{ block.settings.label_address2 }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.map_url %}
+                      <a
+                        class="footer-locations__map"
+                        href="{{ block.settings.map_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View map
+                      </a>
+                    {% endif %}
+                        <br />
+                    {% if block.settings.url %}
+                      <a class="footer-locations__link" href="{{ block.settings.url }}">View the Location Page</a>
+                    {% endif %}
+
+                  </div>
+                </details>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="footer-locations__column">
+        {% if state_2 != blank %}
+          <div class="h3 footer-locations__state">{{ state_2 }}</div>
+        {% endif %}
+        <div class="footer-locations__links">
+          {% for block in section.blocks %}
+            {% if block.type == 'location' and block.settings.column == '2' %}
+              <div class="footer-locations__item" {{ block.shopify_attributes }}>
+                <details class="footer-locations__details" name="footer-locations-accordion">
+                  <summary class="footer-locations__summary">
+                    <div class="footer-locations__summary-main">
+                      <span class="footer-locations__summary-title">{{ block.settings.label }}</span>
+                      {% if block.settings.label_phone != blank %}
+                        <span class="footer-locations__summary-phone"> {{ block.settings.label_phone }}</span>
+                      {% endif %}
+                    </div>
+                    <svg class="footer-locations__caret" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </summary>
+
+                  <div class="footer-locations__content">
+                    
+                    {% if block.settings.label_address1 != blank %}
+                      <div class="footer-locations__address">
+                        {{ block.settings.label_address1 }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.label_address2 != blank %}
+                      <div class="footer-locations__address">
+                        {{ block.settings.label_address2 }}
+                      </div>
+                    {% endif %}
+
+                    {% if block.settings.map_url %}
+  <div>
+    <a
+      class="footer-locations__map"
+      href="{{ block.settings.map_url }}"
+      target="_blank"
+    >
+      View map
+    </a>
+  </div>
+{% endif %}
+{% if block.settings.url %}
+                      <a class="footer-locations__link" href="{{ block.settings.url }}">View the Location Page</a>
+                    {% endif %}
+                  </div>
+                </details>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="footer-locations__column">
+        {% if state_3 != blank %}
+          <div class="h3 footer-locations__state">{{ state_3 }}</div>
+        {% endif %}
+        <div class="footer-locations__links">
+          {% for block in section.blocks %}
+            {% if block.type == 'location' and block.settings.column == '3' %}
+              <div class="footer-locations__item" {{ block.shopify_attributes }}>
+                <details class="footer-locations__details" name="footer-locations-accordion">
+<summary class="footer-locations__summary">
+                      <div class="footer-locations__summary-main">
+                       <span class="footer-locations__summary-title">{{ block.settings.label }}</span>
+                       {% if block.settings.label_phone != blank %}
+                         <span class="footer-locations__summary-phone"> {{ block.settings.label_phone }}</span>
+                       {% endif %}
+                     </div>
+                     <svg class="footer-locations__caret" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                       <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                     </svg>
+                   </summary>
+
+                   <div class="footer-locations__content">
+                     
+                     {% if block.settings.label_address1 != blank %}
+                       <div class="footer-locations__address">
+                         {{ block.settings.label_address1 }}
+                       </div>
+                     {% endif %}
+
+                     {% if block.settings.label_address2 != blank %}
+                       <div class="footer-locations__address">
+                         {{ block.settings.label_address2 }}
+                       </div>
+                     {% endif %}
+
+                     {% if block.settings.map_url %}
+  <div>
+    <a
+      class="footer-locations__map"
+      href="{{ block.settings.map_url }}"
+      target="_blank"
+    >
+      View map
+    </a>
+  </div>
+{% endif %}
+{% if block.settings.url %}
+                       <a class="footer-locations__link" href="{{ block.settings.url }}">View the Location Page</a>
+                     {% endif %}
+                   </div>
+                </details>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      </div>
+
+<div class="footer__copyright caption" style="background: #0e0e0e;">
+        <small class="copyright__content" style="background: #0e0e0e;"
+          >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
+        </small>
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer - Locations",
+  "tag": "section",
+  "class": "section section-footer-locations",
+  "max_blocks": 13,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find a Skin Spa New York Near You"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "state",
+      "name": "State heading",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Column 1"
+            },
+            {
+              "value": "2",
+              "label": "Column 2"
+            },
+            {
+              "value": "3",
+              "label": "Column 3"
+            }
+          ]
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "State heading",
+          "default": "Florida"
+        }
+      ]
+    },
+    {
+      "type": "location",
+      "name": "Location",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "select",
+          "id": "column",
+          "label": "Column",
+          "default": "1",
+          "options": [
+            {
+              "value": "1",
+              "label": "Column 1"
+            },
+            {
+              "value": "2",
+              "label": "Column 2"
+            },
+            {
+              "value": "3",
+              "label": "Column 3"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Location label",
+          "default": "Skin Spa New York"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Location URL"
+        },
+        {
+          "type": "text",
+          "id": "label_address1",
+          "label": "Location address line 1"
+        },
+        {
+          "type": "text",
+          "id": "label_address2",
+          "label": "Location address line 2"
+        },
+        {
+          "type": "text",
+          "id": "label_phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Google Map URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer - Locations",
+      "blocks": [
+        {
+          "type": "state",
+          "settings": {
+            "column": "1",
+            "heading": "Florida"
+          }
+        },
+        {
+          "type": "state",
+          "settings": {
+            "column": "2",
+            "heading": "Massachusetts"
+          }
+        },
+        {
+          "type": "state",
+          "settings": {
+            "column": "3",
+            "heading": "New York"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "1",
+            "label": "Skin Spa New York Miami Beach",
+            "label_address1": " 400 W 41st Street, Suite #200, Room 16",
+            "label_address2": "Miami Beach, FL 33140",
+            "label_phone": "(305) 397-8484",
+            "map_url": "https://maps.app.goo.gl/378ZET4NiZBMiWTJ7"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "2",
+            "label": "Skin Spa New York Back Bay",
+            "label_address1": "284 Newbury St, 3rd Floor",
+            "label_address2": "Boston, MA 02115",
+            "label_phone": "(617) 236-1444",
+            "map_url": "https://maps.app.goo.gl/tM66fTj1QRpdJwFU6"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "3",
+            "label": "Skin Spa New York Flatiron",
+            "label_address1": "11 W 20th St",
+            "label_address2": "New York, NY 10011",
+            "label_phone": "(212) 620-0033",
+            "map_url": "https://maps.app.goo.gl/A6kqTknb9WGWVwxw7"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "3",
+            "label": "Skin Spa New York MidEast",
+            "label_address1": "127 E 56th St, 3Fl",
+            "label_address2": "New York, NY 10022",
+            "label_phone": "(212) 883-1125",
+            "map_url": "https://maps.app.goo.gl/P6SCcE5UtNkizSVZA"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "3",
+            "label": "Skin Spa New York Midtown",
+            "label_address1": "12 E 44th St, 2FL",
+            "label_address2": "New York, NY 10017",
+            "label_phone": "(212) 684-4914",
+            "map_url": "https://maps.app.goo.gl/umk7daYsrGU8jZAj8"
+          }
+        },
+        {
+          "type": "location",
+          "settings": {
+            "column": "3",
+            "label": "Skin Spa New York Upper West Side",
+            "label_address1": "150 Amsterdam Ave",
+            "label_address2": "New York, NY 10023",
+            "label_phone": "(212) 707-8730",
+            "map_url": "https://maps.app.goo.gl/CTzwaFz153jKFwr29"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

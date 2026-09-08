@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "locations": {
+      "type": "locations-cards",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "locations"
+  ]
+}

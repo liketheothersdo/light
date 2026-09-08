@@ -1,0 +1,275 @@
+<link rel="stylesheet" href="{{ 'template_ticker.css' | asset_url }}">
+
+<style>
+    .testimonial-slider-section .slick-arrow {
+    display: none !important
+} 
+
+.testimonial-slider-section .testimonial-slider-image img {
+    height: 120px !important;
+    width: auto;
+}
+
+.testimonial-slider-text {
+    margin-bottom: 16px;
+    max-width: 390px;
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+    color: {{ section.settings.font_color }};
+    text-align: justify;
+    padding-inline: {{ section.settings.spacing_amount }}px;
+}
+
+.testimonial-slider-section {
+    padding: 60px 0;
+    background-color: {{ section.settings.background_color }};
+}
+
+.testimonial-slider-section .three-column-cards-col {
+    margin: 0 {{ section.settings.spacing_amount }}px;
+}
+
+.js-ticker-track {
+    color: {{ section.settings.text_color }};
+}
+
+@media screen and (max-width: 767px) {
+    .testimonial-slider-section {
+        padding: 40px 0;
+    }
+
+    .testimonial-slider-text {
+    font-size: {{ section.settings.font_size_mobile }}px;
+    font-weight: {{ section.settings.font_weight }};
+    color: {{ section.settings.font_color }};
+}
+
+    .testimonial-slider-section .testimonial-slider-image img {
+        height: 100px !important;
+    }
+
+    .testimonial-slider-section .three-column-cards-col {
+        margin: 0 12px;
+        max-width: 300px;
+    }
+}
+</style>
+
+{% render 'module-reviews' %}
+
+{% schema %}
+{
+  "name": "Module Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text1",
+      "label": "Review #1",
+      "default": "I love this place! I’ve been coming monthly for facials for over a year, and my skin has improved a lot. Very relaxing ambiance and reliable professionals -- Felipe M."
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text2",
+      "label": "Review #2",
+      "default": "review 2"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text3",
+      "label": "Review #3",
+      "default": "review 3"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text4",
+      "label": "Review #4",
+      "default": "review 4"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text5",
+      "label": "Review #5",
+      "default": "review 5"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text6",
+      "label": "Review #6",
+      "default": "review 6"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text7",
+      "label": "Review #7",
+      "default": "review 7"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text8",
+      "label": "Review #8",
+      "default": "review 8"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text9",
+      "label": "Review #9",
+      "default": "review 9"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text10",
+      "label": "Review #10",
+      "default": "review 10"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text11",
+      "label": "Review #11",
+      "default": "review 11"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text12",
+      "label": "Review #12",
+      "default": "review 12"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text13",
+      "label": "Review #13",
+      "default": "review 13"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text14",
+      "label": "Review #14",
+      "default": "review 14"
+    },
+    {
+      "type": "text",
+      "id": "module_reviews_text15",
+      "label": "Review #15",
+      "default": "review 15"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#fefefe"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "label": "Font Size (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "label": "Font Size (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "header",
+      "content": "Scroll Behavior"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 0.1,
+      "max": 5,
+      "step": 0.1,
+      "default": 1,
+      "label": "Scroll Speed"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "prepend_whitespace",
+      "label": "Add Space Between Copies",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "spacing_amount",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 10,
+      "label": "Space Amount Between Reviews",
+      "info": "Increase for more space between Reviews"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Module Reviews",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}

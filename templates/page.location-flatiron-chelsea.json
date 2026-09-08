@@ -1,0 +1,509 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_Uxkzz6": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_GVhBcV": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Skin Spa NYC – Flatiron/Chelsea</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_Qhfhbk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our flagship location is right around the corner from the landmark Flatiron Building. Nestled between the Chelsea and Flatiron neighborhoods, we are next to Italkraft on the beautiful 20th St between Fifth & Sixth Avenue.</p><p><strong>Addess</strong></p><p><strong> </strong>11 W. 20th St, <br/>b/w 5th and 6th Ave</p><p><strong>Contact</strong></p><p>Tel: <a href=\"tel:212-620-0033\">212-620-0033</a></p><ul><li>Sunday: 10:00am – 6:00pm</li><li>Monday: 12:00pm – 8:00pm</li><li>Tuesday: 12:00pm – 8:00pm</li><li>Wednesday: 12:00pm – 8:00pm</li><li>Thursday: 12:00pm – 8:00pm</li><li>Friday: 10:00am – 6:00pm</li><li>Saturday: 10:00am – 6:00pm</li></ul>",
+            "text_style": "body"
+          }
+        },
+        "button_aKpiki": {
+          "type": "button",
+          "settings": {
+            "button_label": "Book now",
+            "button_link": "https://skinspanewyork.com/#book-now",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_GVhBcV",
+        "text_Qhfhbk",
+        "button_aKpiki"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Skin_Spa_Flatiron_480x480_b96e45b1-882e-45e9-9b6b-0c31cbab8b90.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "175072034797ea76ea": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_reviews_featured_reviews_carousel_i8yL44": {
+          "type": "shopify://apps/klaviyo-reviews/blocks/featured-reviews-carousel/db20e365-d984-4ac4-9655-e1588d951ca9",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_reviews_featured_reviews_carousel_i8yL44"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_VDc7xb": {
+      "type": "rich-text",
+      "blocks": {
+        "text_AURAzL": {
+          "type": "text",
+          "settings": {
+            "text": "<p>From waxing and massages to tailored laser treatments and body sculpting, Skin Spa New York is your premier destination for all things Skin & Body. No matter how far along you are in your Skin and Body care journey, our professional team will help you 'Love the Skin You're In'.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_AURAzL"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "collapsible_content_tB6CqN": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_kEUQQU": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "SkinCare Membership",
+            "icon": "check_mark",
+            "row_content": "<ul><li><strong>Monthly Treatment: </strong>Choose one from Custom Facial, Microdermabrasion, Power Peel, PCA Peel, or OxyTrio.</li><li><strong>Birthday Perk:</strong> Enjoy a complimentary membership treatment during your birthday month.</li><li><strong>Exclusive Discounts:</strong> Receive 20% off additional services, 10% off product purchases, and 10% off cosmetic injectables.</li><li><strong>Referral Bonus:</strong> Bring a friend new to Skin Spa, and they get 30% off their first treatment.</li><li>Loyalty Reward: After six consecutive months, receive a free Thom Elzner Skincare Technology product.</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_row_hNVaCF": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Hydrafacial Membership",
+            "icon": "check_mark",
+            "row_content": "<ul><li><strong>Monthly Treatment: </strong>One Hydrafacial Deluxe or Signature Treatment is included each month.</li><li><strong>Complimentary Add-On:</strong> Receive one complimentary Dermaplaning, Partial Laser Genesis, or Lymphatic Drainage add-on each month.</li><li><strong>Exclusive Discounts:</strong> 20% off additional services, including Hydrafacial treatments; 10% off cosmetic injectables and all product purchases.</li><li><strong>Birthday Perk: </strong>Enjoy a free Hydrafacial Perk Treatment during your birthday month.</li></ul><p><strong>Referral Bonus:</strong> Bring a friend new to Skin Spa NY, and they get 30% off their first treatment.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_G6AyeD": {
+          "type": "collapsible_row",
+          "disabled": true,
+          "settings": {
+            "heading": "Massage Membership",
+            "icon": "check_mark",
+            "row_content": "<ul><li><strong>Monthly Treatment:</strong> Choose one 50-minute massage from Simply Swedish, Deep Tissue, Aromatherapy, Himalayan Hot Stone, or Prenatal.</li><li><strong>Exclusive Discounts:</strong> 20% off additional services; 10% off product purchases and cosmetic injectables.</li><li><strong>Referral Bonus:</strong> Bring a friend new to Skin Spa NY, and they get 30% off their first treatment.</li></ul><p><strong>Note: </strong>Prenatal massage is available at select locations; please inquire about availability.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_UiEitM": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Botox Annual Plan",
+            "icon": "check_mark",
+            "row_content": "<ul><li><strong>Annual Treatments:</strong> Four Botox appointments per year, up to 60 units per visit.</li><li><strong>Exclusive Discounts:</strong> 30% off additional neuromodulator units; 10% off hyaluronic acid fillers and all product purchases.</li><li><strong>Birthday Perk:</strong> Receive a complimentary Forma Accelerated Face Sculpting treatment.</li></ul><p><strong>Referral Bonus:</strong> Bring a friend new to Skin Spa, and they get 20% off their first neuromodulator treatment.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_nPpLRq": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Gold Membership",
+            "icon": "check_mark",
+            "row_content": "<p><strong>WHAT YOU GET</strong></p><ul><li>Each month, get $200 credit* applicable towards the services of your choice (some exclusions apply),</li><li>Accumulate credits to access higher priced services</li><li>Applicable toward full price services only, cannot be combined with any promotion, discount or rebate. Excluded from exchanges.</li><li>Bring a friend who is new to SKIN SPA and they get 30% OFF their first treatment!</li></ul><p> </p><p><strong>TERMS</strong></p><ul><li>Membership fee billed on 1st of each month</li><li>Cancelable at any time, before the 20th of each month, after 3 months of membership (for the 1 month initial offer or 6 months for the 3 months initial offer). Simply <a href=\"mailto:info@skinspanewyork.com?subject=Cancel_my_Membership\" target=\"_blank\">email-us</a> your request or cancel online.</li><li>Membership fee can’t be combined with any other offer</li><li>Non-transferable</li><li>No cash value</li><li>Members are encouraged to tip on the full price of services</li><li>Membership cannot be frozen</li><li>ID verification is required for treatments</li><li>No refunds or credit for lesser value services</li><li>Price subject to change with 30 days notice</li></ul><p>*your account must be in perfect standing.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_kEUQQU",
+        "collapsible_row_hNVaCF",
+        "collapsible_row_G6AyeD",
+        "collapsible_row_UiEitM",
+        "collapsible_row_nPpLRq"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "Memberships at Skin Spa NYC – Flatiron/Chelsea",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "",
+        "container_color_scheme": "",
+        "open_first_collapsible_row": true,
+        "image": "shopify://shop_images/Loreal-Paris-BMAG-Article-13-Skin_Care_Rules_for_Oily_Skin-D_3caf3e69-d0b2-4aad-86c5-52f0019f0d1b.jpg",
+        "image_ratio": "large",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_mQnqbg": {
+      "type": "rich-text",
+      "blocks": {
+        "button_7ambNW": {
+          "type": "button",
+          "settings": {
+            "button_label": "More Spa Membership Information",
+            "button_link": "https://skinspanewyork.com/pages/memberships",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "button_7ambNW"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_BqbHCX": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_g4ryGB": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Our Skin Spa NYC – Flatiron/Chelsea Medical Spa Services</strong>",
+            "heading_size": "h0"
+          }
+        }
+      },
+      "block_order": [
+        "heading_g4ryGB"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "multirow_bCtxYq": {
+      "type": "multirow",
+      "blocks": {
+        "row_HFUnAN": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/guide_to_injectables.jpg",
+            "caption": "",
+            "heading": "<strong>Cosmetic Injectables</strong>",
+            "text": "<p>Enhance your natural beauty with our range of cosmetic injectables:</p><ul><li><strong>Neuromodulators</strong>: Smooth out wrinkles and fine lines using Botox, Dysport, or Xeomin. Ideal for areas like the forehead, crow's feet, and frown lines. Treatments are typically recommended every 3–4 months.<br/></li><li><strong>Dermal Fillers</strong>: Restore volume and rejuvenate your skin with Juvederm, Restylane, Radiesse, or Sculptra. Common treatment areas include cheeks, lips, jawline, and under-eye hollows.</li></ul>",
+            "button_label": "Explore All Cosmetic Injectables",
+            "button_link": "https://skinspanewyork.com/collections/cosmetic-injectables"
+          }
+        },
+        "row_6AyeRp": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Forma5.webp",
+            "caption": "",
+            "heading": "<strong>Medical Spa Treatments</strong>",
+            "text": "<p>Address various skin concerns with our advanced med-spa services:</p>",
+            "button_label": "Discover All Medical Spa Treatments",
+            "button_link": "https://skinspanewyork.com/collections/expert-services"
+          }
+        },
+        "row_d4jbi9": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Laser_Hair_Removal_Underarm.jpg",
+            "caption": "",
+            "heading": "<strong>Laser Hair Removal</strong>",
+            "text": "<p>Achieve long-lasting smoothness with our laser hair removal services:</p><ul><li>Effective for various skin types and areas, including legs, arms, underarms, and bikini line.<br/></li><li>Typically requires a series of six or more sessions for optimal results.<br/></li><li>Customized treatment plans based on individual skin and hair types.</li></ul>",
+            "button_label": "Learn More About Laser Hair Removal",
+            "button_link": "https://skinspanewyork.com/collections/hair-removal"
+          }
+        },
+        "row_PT8GRC": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/SKINSPA_Product_Waxing_682x425px_large_b9f6cc47-55a9-40f0-b207-df87a4d29a23.png",
+            "caption": "",
+            "heading": "<strong>Waxing Services</strong>",
+            "text": "<p>Experience quick and efficient hair removal with our waxing options:</p><ul><li>We offer both hard and soft waxes to suit different skin sensitivities.</li><li>Services available for various areas, including eyebrows, legs, arms, and bikini.</li><li>Strict hygiene protocols are followed, including a no double-dipping policy.</li></ul>",
+            "button_label": "View Waxing Services",
+            "button_link": "https://skinspanewyork.com/products/waxing"
+          }
+        },
+        "row_ymjQ38": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/custom_facial.jpg",
+            "caption": "",
+            "heading": "<strong>Facial Treatments</strong>",
+            "text": "<p>Revitalize your skin with our comprehensive facial services:</p><ul><li><strong>Customized Facial</strong>: Tailored to your skin type and concerns, this 50-minute treatment includes cleansing, exfoliation, extractions, and hydration.</li><li><strong>Microdermabrasion</strong>: A non-invasive procedure that exfoliates the skin, reducing fine lines and improving texture.</li><li><strong>Power Peel</strong>: Combines chemical exfoliation with nourishing serums to address hyperpigmentation and uneven skin tone.</li><li><strong>HydraFacial</strong>: A multi-step treatment that cleanses, exfoliates, and hydrates the skin, leaving it refreshed and glowing.</li></ul>",
+            "button_label": "Explore All Facial Treatments",
+            "button_link": "https://skinspanewyork.com/collections/facials"
+          }
+        },
+        "row_zgjrP6": {
+          "type": "row",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/massage-green.jpg",
+            "caption": "",
+            "heading": "<strong>Massage Therapy</strong>",
+            "text": "<p>Relax and rejuvenate with our range of massage therapies:</p><ul><li><strong>Prenatal Massage</strong>: Designed to alleviate pregnancy-related discomfort and promote relaxation.</li><li><strong>Deep Tissue Massage</strong>: Targets deeper layers of muscle to relieve chronic tension and pain.</li><li><strong>Swedish Massage</strong>: Utilizes gentle techniques to promote relaxation and improve circulation.</li><li><strong>Himalayan Hot Salt Stone Massage</strong>: Combines warm salt stones with massage techniques to soothe muscles and balance energy.</li></ul>",
+            "button_label": "View All Massage Therapy Options",
+            "button_link": "https://skinspanewyork.com/collections/massage-body"
+          }
+        },
+        "row_7RtTB9": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/butt_pic_post_4_treatments_e34fd05c-b4a8-4da5-9afa-1e6e754d4d21.jpg",
+            "caption": "",
+            "heading": "<strong>Body Treatments</strong>",
+            "text": "<p>Enhance your body's appearance and feel with our specialized treatments</p>",
+            "button_label": "Discover All Body Treatments",
+            "button_link": "https://skinspanewyork.com/collections/bodysculpting"
+          }
+        }
+      },
+      "block_order": [
+        "row_HFUnAN",
+        "row_6AyeRp",
+        "row_d4jbi9",
+        "row_PT8GRC",
+        "row_ymjQ38",
+        "row_zgjrP6",
+        "row_7RtTB9"
+      ],
+      "name": "t:sections.multirow.presets.name",
+      "settings": {
+        "image_height": "small",
+        "desktop_image_width": "medium",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "primary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "image_layout": "alternate-left",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_7eaQJ8": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_NVTYEM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/image2.jpg",
+            "title": "<strong>Daphne Duran, DNP</strong>",
+            "text": "<p>is a highly skilled Nurse Practitioner with over 19 years of medical experience, specializing in internal medicine and aesthetic medicine. Based in New York, Daphne serves as a Nurse Practitioner in primary care for NYU and is also a prominent Aesthetic Nurse Practitioner at Skin Spa New York, where she expertly combines medical knowledge with a passion for beauty and wellness.</p><p>As the owner of Juvenescence Aesthetics med spa and aesthetic injector for skin spa New York, Daphne provides advanced aesthetic treatments tailored to enhance natural beauty and boost confidence. Her extensive background in medicine allows her to approach aesthetics with a clinical eye, ensuring safe, effective, and personalized care for each client. Daphne’s dedication to her craft and her patients has made her a trusted figure in both the medical and aesthetic communities.</p><p>Her compassionate approach, combined with her comprehensive expertise, positions her as a leader in the field, committed to patient well-being and positive outcomes across all aspects of care.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_t7ALDW": {
+          "type": "column",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/image2.jpg",
+            "title": "<strong>Daphne Duran, DNP</strong>",
+            "text": "<p>is a highly skilled Nurse Practitioner with over 19 years of medical experience, specializing in internal medicine and aesthetic medicine. Based in New York, Daphne serves as a Nurse Practitioner in primary care for NYU and is also a prominent Aesthetic Nurse Practitioner at Skin Spa New York, where she expertly combines medical knowledge with a passion for beauty and wellness.</p><p>As the owner of Juvenescence Aesthetics med spa and aesthetic injector for skin spa New York, Daphne provides advanced aesthetic treatments tailored to enhance natural beauty and boost confidence. Her extensive background in medicine allows her to approach aesthetics with a clinical eye, ensuring safe, effective, and personalized care for each client. Daphne’s dedication to her craft and her patients has made her a trusted figure in both the medical and aesthetic communities.</p><p>Her compassionate approach, combined with her comprehensive expertise, positions her as a leader in the field, committed to patient well-being and positive outcomes across all aspects of care.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_8HFnwC": {
+          "type": "column",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/image2.jpg",
+            "title": "<strong>Daphne Duran, DNP</strong>",
+            "text": "<p>is a highly skilled Nurse Practitioner with over 19 years of medical experience, specializing in internal medicine and aesthetic medicine. Based in New York, Daphne serves as a Nurse Practitioner in primary care for NYU and is also a prominent Aesthetic Nurse Practitioner at Skin Spa New York, where she expertly combines medical knowledge with a passion for beauty and wellness.</p><p>As the owner of Juvenescence Aesthetics med spa and aesthetic injector for skin spa New York, Daphne provides advanced aesthetic treatments tailored to enhance natural beauty and boost confidence. Her extensive background in medicine allows her to approach aesthetics with a clinical eye, ensuring safe, effective, and personalized care for each client. Daphne’s dedication to her craft and her patients has made her a trusted figure in both the medical and aesthetic communities.</p><p>Her compassionate approach, combined with her comprehensive expertise, positions her as a leader in the field, committed to patient well-being and positive outcomes across all aspects of care.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_AecfqF": {
+          "type": "column",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/image2.jpg",
+            "title": "<strong>Daphne Duran, DNP</strong>",
+            "text": "<p>is a highly skilled Nurse Practitioner with over 19 years of medical experience, specializing in internal medicine and aesthetic medicine. Based in New York, Daphne serves as a Nurse Practitioner in primary care for NYU and is also a prominent Aesthetic Nurse Practitioner at Skin Spa New York, where she expertly combines medical knowledge with a passion for beauty and wellness.</p><p>As the owner of Juvenescence Aesthetics med spa and aesthetic injector for skin spa New York, Daphne provides advanced aesthetic treatments tailored to enhance natural beauty and boost confidence. Her extensive background in medicine allows her to approach aesthetics with a clinical eye, ensuring safe, effective, and personalized care for each client. Daphne’s dedication to her craft and her patients has made her a trusted figure in both the medical and aesthetic communities.</p><p>Her compassionate approach, combined with her comprehensive expertise, positions her as a leader in the field, committed to patient well-being and positive outcomes across all aspects of care.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_NVTYEM",
+        "column_t7ALDW",
+        "column_8HFnwC",
+        "column_AecfqF"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Meet Our Team",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 2,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "button_label": "See all doctors",
+        "button_link": "https://skinspanewyork.com/pages/copy-of-cosmetic-injectables",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_zygp3Q": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_RCAM7X": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Why We Love Skin Spa NYC – Flatiron/Chelsea</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_fqeQYa": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Flatiron and Chelsea are vibrant neighborhoods full of great restaurants, tree lined streets and accessible shopping. We are near fitness studios, Equinox, and shopping and a few blocks away from Madison Square Park and Eataly.  We love the vibrancy of the neighborhood that speaks directly to the heart of our clients. </p>",
+            "text_style": "body"
+          }
+        },
+        "button_yUjynm": {
+          "type": "button",
+          "settings": {
+            "button_label": "Book Your Appointment",
+            "button_link": "https://skinspanewyork.com/#book-now",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_RCAM7X",
+        "text_fqeQYa",
+        "button_yUjynm"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Skin_Spa_Flatiron_480x480_b96e45b1-882e-45e9-9b6b-0c31cbab8b90.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_zjniDQ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_3FPAnV": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Book Your Appointment</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_EBcfdU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Encourage visitors to schedule a service. Include a call-to-action button or link to the booking page, and mention any current promotions or packages.</p>"
+          }
+        },
+        "button_c8npBf": {
+          "type": "button",
+          "settings": {
+            "button_label": "Book Your Appointment",
+            "button_link": "https://skinspanewyork.com/#book-now",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3FPAnV",
+        "text_EBcfdU",
+        "button_c8npBf"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_Uxkzz6",
+    "175072034797ea76ea",
+    "rich_text_VDc7xb",
+    "collapsible_content_tB6CqN",
+    "rich_text_mQnqbg",
+    "rich_text_BqbHCX",
+    "multirow_bCtxYq",
+    "multicolumn_7eaQJ8",
+    "image_with_text_zygp3Q",
+    "rich_text_zjniDQ"
+  ]
+}

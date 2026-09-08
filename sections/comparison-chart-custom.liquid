@@ -1,0 +1,705 @@
+{% comment %}
+  Renders a dynamic comparison chart. Includes custom formatting with dynamic data from metaobjects and metafields.
+{% endcomment %}
+
+{% assign show_table = true %}
+
+{% for block in section.blocks %}
+  {% if block.settings.column_source == 'product_metafield' %}
+    {% assign column_data = product.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+    {% if column_data == blank %}
+      {% assign show_table = false %}
+      {% break %}
+    {% endif %}
+  {% elsif block.settings.column_source == 'collection_metafield' %}
+    {% assign column_data = collection.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+    {% if column_data == blank %}
+      {% assign show_table = false %}
+      {% break %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if show_table %}
+  <div class="comparison-chart-{{ section.id }} page-width section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.description }}</p>
+
+    <div class="comparison-table-wrapper-{{ section.id }}" style="
+      border: {{ section.settings.outside_border_width }}px solid {{ section.settings.outside_border_color }};
+      border-radius: {{ section.settings.table_border_radius }}px;
+      padding: 0;
+      max-width: 100%;
+      width: {{ section.settings.table_width }}%;
+      margin: 0 auto;
+    ">
+      <div class="comparison-table-{{ section.id }}">
+        <table style="
+          border-collapse: collapse;
+          width: 100%;
+        ">
+          <thead>
+            <tr>
+              {% for block in section.blocks %}
+                {% assign column_title = '' %}
+                {% assign column_title_image = nil %}
+
+                {% if block.settings.column_source == 'metaobject_entry' %}
+                  {% assign column_title = shop.metaobjects.comparison_chart_entries[block.settings.metaobject_metafield_reference].column_title.value %}
+                  {% assign column_title_image = shop.metaobjects.comparison_chart_entries[block.settings.metaobject_metafield_reference].column_title_image.value %}
+                {% elsif block.settings.column_source == 'product_metafield' %}
+                  {% assign column_title = product.metafields.custom[block.settings.metaobject_metafield_reference].value.column_title %}
+                  {% assign column_title_image = product.metafields.custom[block.settings.metaobject_metafield_reference].value.column_title_image %} 
+                {% elsif block.settings.column_source == 'collection_metafield' %}
+                  {% assign column_title = collection.metafields.custom[block.settings.metaobject_metafield_reference].value.column_title %}
+                  {% assign column_title_image = collection.metafields.custom[block.settings.metaobject_metafield_reference].value.column_title_image %}
+                {% endif %}
+          
+                <th class="{% if block.settings.is_active %}active-column{% endif %}" style="
+                  background-color: {% if block.settings.is_active %}{{ section.settings.active_header_background_color }}{% else %}{{ section.settings.header_background_color }}{% endif %};
+                  color: {% if block.settings.is_active %}{{ section.settings.active_header_text_color }}{% else %}{{ section.settings.header_text_color }}{% endif %};
+                  font-weight: {% if section.settings.header_font_style == 'bold' %}bold{% else %}normal{% endif %};
+                  font-style: {% if section.settings.header_font_style == 'italic' %}italic{% else %}normal{% endif %};
+                  font-size: {{ section.settings.header_font_size }}rem;
+                  padding: {{ section.settings.padding }}px;
+                  {% if section.settings.border_display == 'columns' %}
+                    border-right: {% if forloop.last %}0{% else %}{{ section.settings.border_width }}px solid {{ section.settings.border_color }}{% endif %};
+                    border-bottom: 0;
+                  {% elsif section.settings.border_display == 'rows' %}
+                    border-right: 0;
+                    border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+                  {% else %}
+                    border-right: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+                    border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+                  {% endif %}
+                  {% if forloop.first %}border-top-left-radius: {{ section.settings.table_border_radius | minus: section.settings.outside_border_width | minus: 1 }}px;{% endif %}
+                  {% if forloop.last %}border-top-right-radius: {{ section.settings.table_border_radius | minus: section.settings.outside_border_width | minus: 1 }}px;{% endif %}
+                ">
+                  {% if column_title_image %}
+                    {{
+                      column_title_image
+                      | image_url: height: section.settings.column_image_height
+                      | image_tag:
+                        height: section.settings.column_image_height,
+                        class: 'comparison-chart-column-image',
+                        alt: column_title,
+                        loading: 'lazy'
+                    }}
+                  {% else %}
+                    {{ column_title }}
+                  {% endif %}
+                </th>
+              {% endfor %}
+            </tr>
+          </thead>
+
+          {% assign max_rows = 0 %}
+          {% for block in section.blocks %}
+            {% assign column_entries = nil %}
+            {% if block.settings.column_source == 'metaobject_entry' %}
+              {% assign column_entries = shop.metaobjects.comparison_chart_entries[block.settings.metaobject_metafield_reference].column_entries.value %}
+            {% elsif block.settings.column_source == 'product_metafield' %}
+              {% assign column_entries = product.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+            {% elsif block.settings.column_source == 'collection_metafield' %}
+              {% assign column_entries = collection.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+            {% endif %}
+            {% if column_entries and column_entries.size > max_rows %}
+              {% assign max_rows = column_entries.size %}
+            {% endif %}
+          {% endfor %}
+              
+          {% assign end_row = max_rows | minus: 1 %}
+          <tbody>
+            {% for i in (0..end_row) %}
+              <tr>
+                {% for block in section.blocks %}
+                  {% assign column_data = nil %}
+                  {% assign column_entries = nil %}
+                  {% if block.settings.column_source == 'metaobject_entry' %}
+                    {% assign column_entries = shop.metaobjects.comparison_chart_entries[block.settings.metaobject_metafield_reference].column_entries.value %}
+                  {% elsif block.settings.column_source == 'product_metafield' %}
+                    {% assign column_entries = product.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+                  {% elsif block.settings.column_source == 'collection_metafield' %}
+                    {% assign column_entries = collection.metafields.custom[block.settings.metaobject_metafield_reference].value.column_entries.value %}
+                  {% endif %}
+                  {% if column_entries and i < column_entries.size %}
+                    {% assign column_data = column_entries[i] %}
+                    {% if column_data == section.settings.skip_value %}
+                      {% assign column_data = "" %}
+                    {% endif %}
+                  {% endif %}
+                  
+                  <td class="{% if block.settings.is_active %}active-column{% endif %}" style="
+                    {% if forloop.first and section.settings.style_first_column_as_header %}
+                      background-color: {{ section.settings.header_background_color }};
+                      color: {{ section.settings.header_text_color }};
+                      font-weight: {% if section.settings.header_font_style == 'bold' %}bold{% else %}normal{% endif %};
+                      font-style: {% if section.settings.header_font_style == 'italic' %}italic{% else %}normal{% endif %};
+                      font-size: {{ section.settings.header_font_size }}rem;
+                    {% elsif block.settings.is_active %}
+                      background-color: {{ section.settings.active_background_color }};
+                      color: {{ section.settings.active_text_color }};
+                    {% else %}
+                      background-color: {{ section.settings.cell_background_color }};
+                      color: {{ section.settings.cell_text_color }};
+                      font-size: {{ section.settings.cell_font_size }}rem;
+                    {% endif %}
+                    padding: {{ section.settings.padding }}px;
+                    {% if section.settings.border_display == 'columns' %}
+                      border-right: {% if forloop.last %}0{% else %}{{ section.settings.border_width }}px solid {{ section.settings.border_color }}{% endif %};
+                      border-bottom: 0;
+                    {% elsif section.settings.border_display == 'rows' %}
+                      border-right: 0;
+                      border-bottom: {% if forloop.parentloop.last %}0{% else %}{{ section.settings.border_width }}px solid {{ section.settings.border_color }}{% endif %};
+                    {% else %}
+                      border-right: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+                      border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+                    {% endif %}
+                    {% if forloop.parentloop.last and forloop.first %}border-bottom-left-radius: {{ section.settings.table_border_radius | minus: section.settings.outside_border_width | minus: 1 }}px;{% endif %}
+                    {% if forloop.parentloop.last and forloop.last %}border-bottom-right-radius: {{ section.settings.table_border_radius | minus: section.settings.outside_border_width | minus: 1 }}px;{% endif %}
+                  ">
+                  {% if column_data == section.settings.yes_symbol %}
+                    {% case section.settings.symbol_type %}
+                      {% when 'type_1' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M6 12 10 16 18 8" 
+                            stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}green{% endif %}" 
+                            stroke-width="3" fill="none"/>
+                        </svg>
+                      {% when 'type_2' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="12" r="12" fill="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}#4CAF50{% endif %}"/>
+                          <polyline points="6 12 10 16 18 8" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3" fill="none"/>
+                        </svg>
+                      {% when 'type_3' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 24 24" aria-hidden="true">
+                          <rect width="24" height="24" fill="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}#4CAF50{% endif %}"/>
+                          <polyline points="6 12 10 16 18 8" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3" fill="none"/>
+                        </svg>
+                    {% endcase %}
+                  {% elsif column_data == section.settings.no_symbol %}
+                    {% case section.settings.symbol_type %}
+                      {% when 'type_1' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 15 15" aria-hidden="true">
+                          <path d="M4 4 l7 7 M11 4 l-7 7" 
+                            stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}red{% endif %}" 
+                            stroke-width="2" fill="none"/>
+                        </svg>
+                      {% when 'type_2' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 24 24" aria-hidden="true">
+                          <circle cx="12" cy="12" r="12" fill="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}#F44336{% endif %}"/>
+                          <line x1="6" y1="6" x2="18" y2="18" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3"/>
+                          <line x1="18" y1="6" x2="6" y2="18" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3"/>
+                        </svg>
+                      {% when 'type_3' %}
+                        <svg height="{{ section.settings.symbol_size }}" viewBox="0 0 24 24" aria-hidden="true">
+                          <rect width="24" height="24" fill="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_text_color }}{% else %}{{ section.settings.cell_text_color }}{% endif %}{% else %}#F44336{% endif %}"/>
+                          <line x1="6" y1="6" x2="18" y2="18" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3"/>
+                          <line x1="18" y1="6" x2="6" y2="18" stroke="{% if section.settings.symbol_color_mode == 'text_color' %}{% if block.settings.is_active %}{{ section.settings.active_background_color }}{% else %}{{ section.settings.cell_background_color }}{% endif %}{% else %}#fff{% endif %}" stroke-width="3"/>
+                        </svg>
+                    {% endcase %}
+                  {% else %}
+                    {% assign flag_length_1 = section.settings.flag_characters_1 | size %}
+                    {% assign flag_length_2 = section.settings.flag_characters_2 | size %}
+                    {% assign flag_length_3 = section.settings.flag_characters_3 | size %}
+                    {% assign sliced_data_1 = column_data | slice: 0, flag_length_1 %}
+                    {% assign sliced_data_2 = column_data | slice: 0, flag_length_2 %}
+                    {% assign sliced_data_3 = column_data | slice: 0, flag_length_3 %}
+                    {% if sliced_data_1 == section.settings.flag_characters_1 %}
+                      {% assign formatted_text = column_data | slice: flag_length_1, column_data.size %}
+                      <span style="
+                        color: {{ section.settings.flag_text_color_1 }};
+                        font-weight: {% if section.settings.flag_text_style_1 == 'bold' %}bold{% else %}normal{% endif %};
+                        font-style: {% if section.settings.flag_text_style_1 == 'italic' %}italic{% else %}normal{% endif %};
+                      ">
+                        {{ formatted_text | escape }}
+                      </span>
+                    {% elsif sliced_data_2 == section.settings.flag_characters_2 %}
+                      {% assign formatted_text = column_data | slice: flag_length_2, column_data.size %}
+                      <span style="
+                        color: {{ section.settings.flag_text_color_2 }};
+                        font-weight: {% if section.settings.flag_text_style_2 == 'bold' %}bold{% else %}normal{% endif %};
+                        font-style: {% if section.settings.flag_text_style_2 == 'italic' %}italic{% else %}normal{% endif %};
+                      ">
+                        {{ formatted_text | escape }}
+                      </span>
+                    {% elsif sliced_data_3 == section.settings.flag_characters_3 %}
+                      {% assign formatted_text = column_data | slice: flag_length_3, column_data.size %}
+                      <span style="
+                        color: {{ section.settings.flag_text_color_3 }};
+                        font-weight: {% if section.settings.flag_text_style_3 == 'bold' %}bold{% else %}normal{% endif %};
+                        font-style: {% if section.settings.flag_text_style_3 == 'italic' %}italic{% else %}normal{% endif %};
+                      ">
+                        {{ formatted_text | escape }}
+                      </span>
+                    {% else %}
+                      {{ column_data | escape }}
+                    {% endif %}
+                  {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .comparison-chart-{{ section.id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .comparison-table-{{ section.id }} {
+    width: 100%;
+    overflow-x: auto;
+    background-color: transparent;
+  }
+
+  .comparison-table-{{ section.id }} table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .comparison-table-{{ section.id }} table:not([class]) td, table:not([class]) th {
+    border: none;
+  }
+
+  .comparison-table-{{ section.id }} .active-column {
+    background-color: {{ section.settings.active_background_color }};
+    color: {{ section.settings.active_text_color }};
+  }
+
+  .comparison-table-{{ section.id }} thead .active-column {
+    color: {{ section.settings.active_header_text_color }};
+  }
+
+  .comparison-table-{{ section.id }} thead .active-column {
+    border-top-left-radius: {{ section.settings.active_column_border_radius }}px;
+    border-top-right-radius: {{ section.settings.active_column_border_radius }}px;
+  }
+
+  .comparison-table-{{ section.id }} tbody tr:last-child .active-column {
+    border-bottom-left-radius: {{ section.settings.active_column_border_radius }}px;
+    border-bottom-right-radius: {{ section.settings.active_column_border_radius }}px;
+  }
+{% endstyle %}
+                       
+{% schema %}
+{
+  "name": "Comparison Chart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Chart Title",
+      "default": "Product Comparison"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Chart Description",
+      "default": "Compare the features and prices of our products."
+    },
+    {
+      "type": "header",
+      "content": "Table formatting"
+    },
+    {
+      "type": "range",
+      "id": "table_width",
+      "label": "Table Width (%)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "style_first_column_as_header",
+      "label": "Style First Column as Header",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "header_font_style",
+      "label": "Header Font Style",
+      "options": [
+        { "value": "bold", "label": "Bold" },
+        { "value": "italic", "label": "Italic" },
+        { "value": "regular", "label": "Regular" }
+      ],
+      "default": "bold"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "label": "Header Font Size (rem)",
+      "min": 1,
+      "max": 4,
+      "step": 0.2,
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "header_background_color",
+      "label": "Header Background Color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header Text Color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "range",
+      "id": "cell_font_size",
+      "label": "Cell Font Size (rem)",
+      "min": 1,
+      "max": 4,
+      "step": 0.2,
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "cell_background_color",
+      "label": "Cell Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cell_text_color",
+      "label": "Cell Text Color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "range",
+      "id": "column_image_height",
+      "label": "Column Title Image Height (px)",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Cell Padding (px)",
+      "min": 5,
+      "max": 30,
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Border formatting"
+    },
+    {
+      "type": "select",
+      "id": "border_display",
+      "label": "Border Display",
+      "options": [
+        { "value": "rows", "label": "Rows" },
+        { "value": "columns", "label": "Columns" },
+        { "value": "both", "label": "Both" }
+      ],
+      "default": "rows"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border Width (px)",
+      "min": 0,
+      "max": 10,
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "range",
+      "id": "outside_border_width",
+      "label": "Outside Border Width (px)",
+      "min": 0,
+      "max": 10,
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "outside_border_color",
+      "label": "Outside Border Color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "range",
+      "id": "table_border_radius",
+      "label": "Table Border Radius (px)",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Active column formatting"
+    },
+    {
+      "type": "color",
+      "id": "active_header_background_color",
+      "label": "Active Column Header Background Color",
+      "default": "#cbbaa9"
+    },
+    {
+      "type": "color",
+      "id": "active_header_text_color",
+      "label": "Active Column Header Text Color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "color",
+      "id": "active_background_color",
+      "label": "Active Column Background Color",
+      "default": "#cbbaa9"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active Column Text Color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "range",
+      "id": "active_column_border_radius",
+      "label": "Active Column Border Radius (px)",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Yes and No Symbols"
+    },
+    {
+      "type": "text",
+      "id": "yes_symbol",
+      "label": "Yes Symbol Text",
+      "default": "[YES]"
+    },
+    {
+      "type": "text",
+      "id": "no_symbol",
+      "label": "No Symbol Text",
+      "default": "[NO]"
+    },
+    {
+      "type": "select",
+      "id": "symbol_type",
+      "label": "Symbol Type",
+      "options": [
+        { "value": "type_1", "label": "Green Checkmark/Red Cross" },
+        { "value": "type_2", "label": "Green Checkmark/Red Cross inside Circle" },
+        { "value": "type_3", "label": "Green Checkmark/Red Cross inside Square" }
+      ],
+      "default": "type_2"
+    },
+    {
+      "type": "select",
+      "id": "symbol_color_mode",
+      "label": "Symbol Color Mode",
+      "options": [
+        { "value": "default", "label": "Green/Red" },
+        { "value": "text_color", "label": "Table Color Formatting" }
+      ],
+      "default": "default"
+    },
+    
+    {
+      "type": "range",
+      "id": "symbol_size",
+      "label": "Symbol Size (Height in px)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Empty cell settings"
+    },
+    {
+      "type": "text",
+      "id": "skip_value",
+      "label": "Skip Value",
+      "default": "[SKIP]"
+    },
+    {
+      "type": "header",
+      "content": "Custom text formatting 1"
+    },
+    {
+      "type": "color",
+      "id": "flag_text_color_1",
+      "label": "Custom Text Color 1",
+      "default": "#4CAF50"
+    },
+    {
+      "type": "select",
+      "id": "flag_text_style_1",
+      "label": "Custom Text Style 1",
+      "options": [
+        { "value": "bold", "label": "Bold" },
+        { "value": "italic", "label": "Italic" },
+        { "value": "regular", "label": "Regular" }
+      ],
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "flag_characters_1",
+      "label": "Flag Characters 1",
+      "default": "__"
+    },
+    {
+      "type": "header",
+      "content": "Custom text formatting 2"
+    },
+    {
+      "type": "color",
+      "id": "flag_text_color_2",
+      "label": "Custom Text Color 2",
+      "default": "#F44336"
+    },
+    {
+      "type": "select",
+      "id": "flag_text_style_2",
+      "label": "Custom Text Style 2",
+      "options": [
+        { "value": "bold", "label": "Bold" },
+        { "value": "italic", "label": "Italic" },
+        { "value": "regular", "label": "Regular" }
+      ],
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "flag_characters_2",
+      "label": "Flag Characters 2",
+      "default": "*"
+    },
+    {
+      "type": "header",
+      "content": "Custom text formatting 3"
+    },
+    {
+      "type": "color",
+      "id": "flag_text_color_3",
+      "label": "Custom Text Color 3",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "select",
+      "id": "flag_text_style_3",
+      "label": "Custom Text Style 3",
+      "options": [
+        { "value": "bold", "label": "Bold" },
+        { "value": "italic", "label": "Italic" },
+        { "value": "regular", "label": "Regular" }
+      ],
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "flag_characters_3",
+      "label": "Flag Characters 3",
+      "default": "!"
+    },
+    {
+      "type": "header",
+      "content": "Section formatting"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },    
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Comparison Column",
+      "settings": [
+        {
+          "type": "select",
+          "id": "column_source",
+          "label": "Column Source",
+          "options": [
+            { "value": "metaobject_entry", "label": "Metaobject Entry" },
+            { "value": "product_metafield", "label": "Product Metafield" },
+            { "value": "collection_metafield", "label": "Collection Metafield" }
+          ],
+          "default": "metaobject_entry"
+        },
+        {
+          "type": "text",
+          "id": "metaobject_metafield_reference",
+          "label": "Metaobject/Metafield Reference",
+          "info": "If any column's metafield data cannot be found, the table will not be shown"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_active",
+          "label": "Mark as Active Column",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Chart",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+

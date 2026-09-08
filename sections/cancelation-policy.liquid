@@ -1,0 +1,137 @@
+{% style %}
+
+#cancelation {
+* {
+    margin: 2%;
+    box-sizing: border-box;
+}
+
+  h1 {
+    font-size: 2em;
+    color: #fff;
+    text-wrap: pretty;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: #bc9a64;
+    text-align: center;
+    text-wrap: pretty;
+    padding-bottom: 16px;
+  }
+  
+/* Styling the body with flex container properties */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    background: #fff;
+    /* Setting background color */
+}
+
+/* Styling for the main box */
+.box {
+    align-items: center;
+    position: relative;
+    width: 60%;
+    height: fit-content;
+    background: #0e0e0e;
+    padding: 16px; 
+}
+
+.box .box1 span {
+    color: white;
+    display: flex;
+    align-items: center;
+    font-family: "Interstate", sans-serif;
+    text-wrap: balance;
+    text-align: justify;
+    line-height: 1.2;
+}
+
+ .box .box2 h2 {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 10px;
+    height: fit-content;
+    background: #fff;
+    color: #0e0e0e;
+    align-items: center;  
+    justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding-top: 6%;
+    padding-bottom: 6%;
+  }
+  
+  .box {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 6vmin;
+  }
+
+  h2 {
+    font-size: 4vmin;
+    font-weight: 700;
+  }
+
+  .box .box2 h2 {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 96%;
+    padding-top: 10px;
+    margin: 0 auto;
+    height: fit-content;
+    background: #fff;
+    color: #0e0e0e;
+    align-items: center;  
+    justify-content: center;
+    
+}
+}
+
+{% endstyle %}
+
+<div id="cancelation" class="cancelation"> 
+<div class="container">
+<div class="box">
+<h1 style="text-align: center;">Soft Cancelation Policy</h1>
+  <br />
+<div class="box1">
+<h2 style="text-align: center;">Late cancelations, last-minute rescheduling or No-Shows will be charged <b>$50</b> to cover our time and effort.</h2>
+<div class="box1"><span><br>We understand that life can become unexpectedly busy and that plans can change without warning. That's why we offer our clients the flexibility to change or cancel their appointment at no charge, as long as they provide us with at least a 24 hours notice.&nbsp;</span></div>
+<div class="box1"><span><br>We do not accept cancelations or rebookings by email or Virtual Concierge. Please call the location during business hours.&nbsp;</span></div>
+<div class="box1"><span><br>In the event that the Spa cancels your appointment less than 24 hours prior, we will issue a store credit of $50 applicable towards a fee or service. This credit has no cash value and cannot be issued as a refund. </span></div>
+<div class="box1"><span><br>As a courtesy, we will call, text or email to confirm your service appointments one to two business days prior to your appointment date. Please confirm or change your appointments as soon as possible as missed appointments or late-cancellations will be charged the cancellation fee. </span></div>
+<div class="box1"><span><br>If you need to cancel your appointment because of sickness, we will be happy to waive the cancelation fee with a Doctor's note. </span></div>
+<div>
+  <br />
+  <div class="box2">
+<h2>When you schedule your appointment with us, you are agreeing to these policies.</h2>
+</div>
+</div>
+</div>  
+</div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "cancelation-policy",
+  "settings": [
+
+  ]
+}
+{% endschema %}

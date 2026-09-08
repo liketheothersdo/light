@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "our-medical-team": {
+      "type": "our-medical-team",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "our-medical-team"
+  ]
+}

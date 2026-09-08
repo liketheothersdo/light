@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="{{ 'section-footer.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<div class="footer-locations color-{{ section.settings.color_scheme }} gradient">
+
+{%- if section.settings.show_chatbot -%}
+<div class="chatbot">
+<script>
+  window.addEventListener("load", function () {
+    const blocked = ["/pages/skin-spa-new-york-mideast", "/pages/skin-spa-new-york-midtown", "/pages/skin-spa-new-york-flatiron", "/pages/skin-spa-new-york-upper-west-side", "/pages/skin-spa-new-york-back_bay", "/pages/skin-spa-new-york-miami-beach"];
+    const path = window.location.pathname.replace(/\/$/, "");
+    if (blocked.includes(path)) return;
+
+    const script = document.createElement("script");
+    script.src = "{{ 'chat-widget-v2.js' | asset_url }}";
+    script.async = true;
+    script.onload = function () {
+      if (typeof window.initMedspaWidget === "function") {
+        window.initMedspaWidget("fef5ea04");
+      }
+    };
+    document.body.appendChild(script);
+  });
+</script>
+</div>
+{% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Chatbot",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_chatbot",
+      "default": true,
+      "label": "t:sections.footer.settings.header__0.content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Chatbot"
+    }
+  ]
+}
+{% endschema %}

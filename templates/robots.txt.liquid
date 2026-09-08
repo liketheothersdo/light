@@ -1,0 +1,163 @@
+{%- comment -%}
+  robots.txt.liquid — Shopify native template
+  Uses robots.default_groups to emit Shopify-managed rules (cart, checkout,
+  account, CDN, web-pixels…). Site-specific custom rules are injected inside
+  the wildcard (*) group so every Disallow has a valid User-agent owner.
+{%- endcomment -%}
+{% for group in robots.default_groups %}
+    {{- group.user_agent }}
+
+{%- for rule in group.rules -%}
+{{ rule }}
+{%- endfor -%}
+
+{%- if group.user_agent.value == '*' -%}
+{%- comment -%} ── URL Parameters & Crawl Budget Filters ──────────────────── {%- endcomment -%}
+{{ 'Disallow: /*?q=*' }}
+{{ 'Disallow: /collections/*sort_by*' }}
+{{ 'Disallow: /collections/*+*' }}
+{{ 'Disallow: /collections/*%2B*' }}
+{{ 'Disallow: /collections/*%2b*' }}
+{{ 'Disallow: /blogs/*+*' }}
+{{ 'Disallow: /blogs/*%2b*' }}
+{{ 'Disallow: /blogs/*-tag' }}
+{{ 'Disallow: /pages/*/tag/*' }}
+{{ 'Disallow: /pages/*/1000/*' }}
+{{ 'Disallow: /pages/*/sections.article_link' }}
+{{ 'Disallow: /*.*archive' }}
+{{ 'Disallow: /apple-app-site-association' }}
+{{ 'Disallow: /*landing_page*' }}
+{{ 'Disallow: /tag/*' }}
+{{ 'Disallow: /wp*' }}
+{{ 'Disallow: /web-pixel*' }}
+{{ 'Disallow: /api/*' }}
+{{ 'Disallow: /pages/skin-spa-chestnut-hill*' }}
+
+{%- comment -%} ── System / Internal ──────────────────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /admin' }}
+{{ 'Disallow: /cart' }}
+{{ 'Disallow: /inventory' }}
+{{ 'Disallow: /private' }}
+{{ 'Disallow: /sandbox' }}
+{{ 'Disallow: /thank_you' }}
+{{ 'Disallow: /appointments' }}
+{{ 'Disallow: /boston' }}
+
+{%- comment -%} ── Old Locations & Closed Services ────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /locations/midtown-west/' }}
+{{ 'Disallow: /pages/fashion-district-spa' }}
+{{ 'Disallow: /services/anti-aging/limelight' }}
+{{ 'Disallow: /services/anti-aging/laser-genesis' }}
+{{ 'Disallow: /services/anti-aging/photolight' }}
+
+{%- comment -%} ── Deprecated Blog Posts ──────────────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /blogs/news/how-often-should-i-get-microneedling-treatments-*' }}
+{{ 'Disallow: /blogs/news/how-to-incorporate-glycolic-acid-into-your-skincare-routine-*' }}
+{{ 'Disallow: /blogs/news/most-common-questions-about-light-therapy' }}
+{{ 'Disallow: /blogs/news/niacinamide' }}
+{{ 'Disallow: /blogs/retinoids-vs-retinol' }}
+
+{%- comment -%} ── Discontinued Products ──────────────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /products/100-spa-week-laser-hair-removal-upper-back' }}
+{{ 'Disallow: /products/150-spa-week-laser-hair-removal-full-back' }}
+{{ 'Disallow: /products/complexion-treatment-pads/tag' }}
+{{ 'Disallow: /products/copy-of-150-spa-week-microneedling' }}
+{{ 'Disallow: /products/daily-repair-moisturizer-archvie' }}
+{{ 'Disallow: /products/daily-super-serum-archive' }}
+{{ 'Disallow: /products/emsculpt*' }}
+{{ 'Disallow: /products/enzyme-treatment-masque-archive' }}
+{{ 'Disallow: /products/nuface-trinity' }}
+{{ 'Disallow: /products/one-custom-facial-we-will-donate-to-one-to-our-nyc-front-line' }}
+{{ 'Disallow: /products/purifying-gel-cleanser-archive' }}
+{{ 'Disallow: /products/three-microdermabrasion-or-power-peels*' }}
+{{ 'Disallow: /products/tite*' }}
+{{ 'Disallow: /products/tone-package-of-4*' }}
+{{ 'Disallow: /products/trim*' }}
+
+{%- comment -%} ── Collections: Sale & Seasonal ───────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /collections/24hrsale' }}
+{{ 'Disallow: /collections/body-contouring-sale/*' }}
+{{ 'Disallow: /collections/national-wellness-month' }}
+{{ 'Disallow: /collections/sale' }}
+{{ 'Disallow: /collections/sale-1/products/*' }}
+{{ 'Disallow: /collections/sale/products/*' }}
+{{ 'Disallow: /collections/self-love/products/trim' }}
+{{ 'Disallow: /collections/skinspamonth/Spa-Month' }}
+{{ 'Disallow: /collections/special-offers/*' }}
+{{ 'Disallow: /collections/spring-of-self-love/*' }}
+
+{%- comment -%} ── Collections: Discontinued Product Contexts ─────────────── {%- endcomment -%}
+{{ 'Disallow: /collections/all-discountable-services/products/three-microdermabrasion-or-power-peels' }}
+{{ 'Disallow: /collections/all/products/daily-super-serum-archive' }}
+{{ 'Disallow: /collections/all/products/emsculpt' }}
+{{ 'Disallow: /collections/all/products/emsculpt-body-sculpting-special-offer' }}
+{{ 'Disallow: /collections/all/products/enzyme-treatment-masque-archive' }}
+{{ 'Disallow: /collections/all/products/product-master' }}
+{{ 'Disallow: /collections/all/products/rise-ai-giftcard' }}
+{{ 'Disallow: /collections/all/products/three-microdermabrasion-or-power-peels' }}
+{{ 'Disallow: /collections/all/products/tite' }}
+{{ 'Disallow: /collections/all/products/tone-package-of-4' }}
+{{ 'Disallow: /collections/all/products/trim' }}
+{{ 'Disallow: /collections/bodysculpting/products/emsculpt' }}
+{{ 'Disallow: /collections/bodysculpting/products/tite' }}
+{{ 'Disallow: /collections/bodysculpting/products/tone-package-of-4' }}
+{{ 'Disallow: /collections/bodysculpting/products/trim' }}
+{{ 'Disallow: /collections/bodysculpting/products/trim-tite-tone' }}
+{{ 'Disallow: /collections/celebrity-favorites/products/emsculpt' }}
+{{ 'Disallow: /collections/celebrity-favorites/products/rise-ai-giftcard' }}
+{{ 'Disallow: /collections/celebrity-favorites/products/tite' }}
+{{ 'Disallow: /collections/celebrity-favorites/products/tone-package-of-4' }}
+{{ 'Disallow: /collections/celebrity-favorites/products/trim' }}
+{{ 'Disallow: /collections/emsculpt/products/emsculpt' }}
+{{ 'Disallow: /collections/facials/products/three-microdermabrasion-or-power-peels' }}
+{{ 'Disallow: /collections/monthoflove/products/three-microdermabrasion-or-power-peels' }}
+{{ 'Disallow: /collections/our-most-popular-treatments/products/emsculpt' }}
+{{ 'Disallow: /collections/types/products/copy-of-150-spa-week-microneedling' }}
+{{ 'Disallow: /collections/types/products/three-microdermabrasion-or-power-peels' }}
+{{ 'Disallow: /collections/types/products/tone-package-of-4' }}
+{{ 'Disallow: /collections/types/products/trim' }}
+
+{%- comment -%} ── Collections: Internal / System ─────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /collections/e-gift-cards*' }}
+{{ 'Disallow: /collections/everything-but-exclusions/*' }}
+{{ 'Disallow: /collections/evolve-by-inmode/*' }}
+{{ 'Disallow: /collections/gift-certificates/products/rise-ai-giftcard' }}
+{{ 'Disallow: /collections/massage-body/products/express-sunless-tan' }}
+{{ 'Disallow: /collections/memberships/products/waxmembership' }}
+{{ 'Disallow: /collections/packages-only*' }}
+{{ 'Disallow: /collections/tax-*' }}
+{{ 'Disallow: /collections/test-complex-collection' }}
+{{ 'Disallow: /collections/vendors' }}
+{{ 'Disallow: /store/body-web-offers/deep-tissue-massage-3-pack' }}
+
+{%- comment -%} ── Pages: Old / Inactive ──────────────────────────────────── {%- endcomment -%}
+{{ 'Disallow: /pages/advent-calendar' }}
+{{ 'Disallow: /pages/botox-bubbly*' }}
+{{ 'Disallow: /pages/brickells-contest' }}
+{{ 'Disallow: /pages/log-in' }}
+{{ 'Disallow: /pages/recent-press' }}
+{{ 'Disallow: /pages/recent-press-test' }}
+{{ 'Disallow: /pages/rules' }}
+{{ 'Disallow: /pages/rules_fl' }}
+{{ 'Disallow: /pages/rules_fl/tag' }}
+{{ 'Disallow: /pages/sag-harbour' }}
+{{ 'Disallow: /pages/sweepstakes*' }}
+{{ 'Disallow: /pages/the-mark' }}
+{{ 'Disallow: /pages/*test*' }}
+{%- endif %}
+
+{%- if group.user_agent.value == 'GoogleDocs' %}
+{{ 'Disallow: /' }}
+{%- endif %}
+
+{%- if group.user_agent.value == 'AdsBot-Google' or group.user_agent.value == 'AdsBot-Google-Mobile'
+    or group.user_agent.value == 'Pinterestbot' or group.user_agent.value == 'AdIdxBot' %}
+{{ 'Allow: */ppc/*' }}
+{{ 'Allow: *utm_medium=cpc*' }}
+{%- endif %}
+
+{%- if group.sitemap != blank %}
+{{ group.sitemap }}
+{%- endif %}
+
+{%- endfor %}

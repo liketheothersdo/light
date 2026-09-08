@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "cancelation-policy": {
+      "type": "cancelation-policy",
+      "custom_css": [
+        "h2 {color: #bc9a64; font-family: 'Interstate', sans-serif; font-weight: 700; text-wrap: balance;}",
+        "p {text-align: justify;}"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "cancelation-policy"
+  ]
+}

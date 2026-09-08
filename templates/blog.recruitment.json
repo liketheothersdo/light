@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main_recruitment_post_yWRiRn": {
+      "type": "main-recruitment-post",
+      "name": "Job Openings",
+      "settings": {
+        "blog": "hire-me",
+        "layout_style": "columns",
+        "jobs_per_page": 6,
+        "accent_color": "#bc9a64",
+        "show_location": true,
+        "show_department": true
+      }
+    }
+  },
+  "order": [
+    "main_recruitment_post_yWRiRn"
+  ]
+}

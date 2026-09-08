@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="{{ 'carousel.css' | asset_url }}" media="all" defer>
+<main style="min-height:75vh">
+  <section class="portfolio-caroussel-block">
+    <h1>Memberships</h1>
+    <div class="caroussel" data-lenis="portfolio">
+      <div class="caroussel-trail" style="padding-top: 100px;">
+        {% comment %}<div class="caroussel-item" data-id="0">
+        <a href="https://skinspanewyork.com/products/gold-membership"><picture class="tile"><img src="https://cdn.shopify.com/s/files/1/0071/6197/0758/files/gold-membership.png?v=1750208878" alt="Gold Membership"></picture></a>
+        </div>{% endcomment %}
+        <div class="caroussel-item" data-id="1">
+        <a href="https://skinspanewyork.com/products/botox-annual-plan"><picture class="tile"><img fetchpriority="auto" loading="eager" src="https://cdn.shopify.com/s/files/1/0071/6197/0758/files/membership-btx.png?v=1729377874" title="Botox Annual Membership" alt="Botox Annual Plan" width="600" height="600"></picture></a>
+        </div>
+        <div class="caroussel-item" data-id="2">
+        <a href="https://skinspanewyork.com/products/new-skincare-membership"><picture class="tile"><img fetchpriority="auto" loading="eager" src="https://cdn.shopify.com/s/files/1/0071/6197/0758/files/membership-facial.png?v=1729376011" width="600" height="600" title="Facial Membership"alt="Facial Membership"></picture></a>
+        </div>
+        <div class="caroussel-item" data-id="3">
+        <a href="https://skinspanewyork.com/products/new-massage-membership"><picture class="tile"><img fetchpriority="auto" loading="eager" src="https://cdn.shopify.com/s/files/1/0071/6197/0758/files/membership-massage.png?v=1729377169" width="600" height="600" title="Massage Membership" alt="Massage Membership"></picture></a>
+        </div>
+        <div class="caroussel-item" data-id="4">
+        <a href="https://skinspanewyork.com/products/new-hydrafacial-membership"><picture class="tile"><img fetchpriority="auto" loading="eager" src="https://cdn.shopify.com/s/files/1/0071/6197/0758/files/membership-hf.png?v=1729377365" width="600" height="600" title="Hydrafacial Membership" alt="Hydrafacial Membership"></picture></a>
+        </div>
+    </div>
+    </div>
+  </section>
+<script src="{{ 'carousel.js' | asset_url }}" defer></script>
+
+{% render 'schema-product' %}
+{% render 'schema-membership' %}
+  
+</main>
+
+{% schema %}
+{
+  "name": "Carousel",
+  "settings": [
+
+  ]
+}
+{% endschema %}

@@ -1,0 +1,53 @@
+   <meta property="designer" content="Johann Quessada">
+  <link href="{{ 'apple-touch-icon32x32.png' | asset_url }}" rel="shortcut icon" type="image/x-icon">
+  {{ 'locations-individual-locations.css' | asset_url | stylesheet_tag }}
+  {{ 'cqp5jyy.css' | asset_url | stylesheet_tag }}
+  {{ 'locations-grid-services.css' | asset_url | stylesheet_tag }}
+
+  <body>
+    <div id="miamidowntown">
+<section>
+  <div class="main-location"
+  <div class="container-location">
+  <picture>
+        <source srcset="{{ 's-miami_midtown.png' | asset_url }}" media="(max-width: 768px)">
+        <source srcset="{{ 'miami_midtown.png' | asset_url }}" media="(min-width: 769px)">
+        <img src="{{ 'miami_midtown.png' | asset_url }}" class="city__image" alt="Miami Midtown" style="aspect-ratio: 16 / 9; width: 100%; height: auto;" loading="eager">
+       </picture>
+       </div>
+  <div class="text-content">
+        <div class="title">SKIN SPA NEW YORK<span><br>FL > Miami Midtown • <b>Coming Soon</b></span></div>
+          <div><a href="#" class="address">180 NE 29th St<br>Miami, FL 33137</a></div>
+            <div class="phone"><span class="coming-soon-phone">Coming Soon</span></div>
+            <p class="description">
+          Midtown, renowned for its hip vibe, is a hub of art, shopping, and luxury in Miami. Just a quarter-mile west of Biscayne Boulevard, it’s at the heart of South Florida’s best locations.
+            </p>
+            <a class="btn" href="https://skinspanewyork.com/#book-now" role="link" target="_blank">
+              <button>
+                <div class="effect">
+                  <span>BOOK NOW</span>
+                </div>
+              </button>
+            </a>
+          </div>   
+</section>
+
+    <section>
+      <div class="container-services">
+    <img class="center arrow-down-locations" src="{{ 'icon-arrow-down-locations.svg' | asset_url }}" width="64" height="44" loading="lazy">
+    <div class="services center">Services</div>
+      <div class="scroller" data-direction="right" data-speed="1">
+        <div class="scroller__inner">  
+
+          
+</div>
+</div>
+</div>
+<hr class="hr">
+</section>
+</div>
+<script src="{{ 'scroller.js' | asset_url }}" defer></script>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+</body>

@@ -1,0 +1,127 @@
+{{ 'bentobox.css' | asset_url | stylesheet_tag }}
+
+<div class="media-coverage page-width">
+  <div class="media-coverage__grid">
+    {% for block in section.blocks %}
+      <article class="media-coverage__item" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 800 | image_tag: widths: '200,400,600,800', loading: 'lazy', alt: block.settings.title }}
+        {% endif %}
+
+        {% if block.settings.title != blank %}
+          <div class="h3">{{ block.settings.title }}</div>
+        {% endif %}
+
+        {% if block.settings.content != blank %}
+          <p>{{ block.settings.content }}</p>
+        {% endif %}
+
+        {% if block.settings.date != blank %}
+          <p class="date">{{ block.settings.date }}</p>
+        {% endif %}
+
+        {% if block.settings.link != blank %}
+          <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer">
+            Read more{% if block.settings.source != blank %} on {{ block.settings.source }}{% endif %}
+          </a>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% comment %}
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ request.origin | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image": [
+        {{ article | image_url: autosection.media-coverage.article_source | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ 'sections.blocks.title.settings.article_show_source.label' | t }}
+    }
+  }
+</script>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Media coverage",
+  "tag": "section",
+  "class": "media-coverage",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Media coverage"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date"
+        },
+        {
+          "type": "text",
+          "id": "source",
+          "label": "Source"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Article link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media coverage",
+      "blocks": [
+        {
+          "type": "article"
+        },
+        {
+          "type": "article"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

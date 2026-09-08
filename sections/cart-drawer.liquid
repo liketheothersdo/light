@@ -1,0 +1,4 @@
+    {% unless localization.country.iso_code == 'US' or request.path == '/404' %}
+    <script>window.location.href = '/geo';</script>
+    {% endunless %}
+{%- render 'cart-drawer' -%}

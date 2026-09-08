@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "our-aesthetics-team": {
+      "type": "our-aesthetics-team",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "our-aesthetics-team"
+  ]
+}

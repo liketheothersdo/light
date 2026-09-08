@@ -1,0 +1,50 @@
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}
+
+ <div class="footer__list-social color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+ {%- if section.settings.show_social -%}
+      {%- render 'social-icons', class: 'footer__list-social' -%}
+{%- endif -%}
+    </div>
+    </div>
+
+  <div
+    class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+      data-cascade
+    {% endif %}
+  >
+  </div>
+
+
+{% schema %}
+{
+  "name": "Footer - Social Media",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Follow us"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "default": true,
+      "label": "t:sections.footer.settings.show_social.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer - Social Media"
+    }
+  ]
+}
+{% endschema %}

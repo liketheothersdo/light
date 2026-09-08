@@ -1,0 +1,142 @@
+{% style %}
+
+#do-not-sell {
+* {
+    margin: 2%;
+    box-sizing: border-box;
+}
+
+  h1 {
+    font-size: 2em;
+    color: #fff;
+    text-wrap: pretty;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: #bc9a64;
+    text-align: center;
+    text-wrap: pretty;
+    padding-bottom: 16px;
+  }
+  
+/* Styling the body with flex container properties */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    background: #fff;
+    /* Setting background color */
+}
+
+/* Styling for the main box */
+.box {
+    align-items: center;
+    position: relative;
+    width: 60%;
+    height: fit-content;
+    background: #0e0e0e;
+    padding: 16px; 
+}
+
+.box .box1 span {
+    color: white;
+    display: flex;
+    align-items: center;
+    font-family: "Interstate", sans-serif;
+    text-wrap: balance;
+    text-align: justify;
+    line-height: 1.2;
+}
+
+ .box .box2 h2 {
+    display: block;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    height: fit-content;
+    background: #fff;
+    color: #0e0e0e;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding-top: 6%;
+    padding-bottom: 6%;
+  }
+  
+  .box {
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .box1 span {
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: 6vmin;
+  }
+
+  h2 {
+    font-size: 4vmin;
+    font-weight: 700;
+    padding: 10px;
+  }
+
+  .box .box2 h2 {
+    display: block;
+    position: relative;
+    width: 96%;
+    padding: 10px;
+    margin: 0 auto;
+    height: fit-content;
+    background: #fff;
+    color: #0e0e0e;
+    text-align: center;
+}
+}
+}
+
+{% endstyle %}
+
+<div id="do-not-sell" class="do-not-sell"> 
+<div class="container">
+<div class="box">
+<h1 style="text-align: center;">Do Not Sell My Personnal Information</h1>
+  <br />
+<div class="box1">
+<h2 style="text-align: center;">If you live in one of the states covered by privacy laws:</h2>
+<div class="box1"><span><br>As described in our Privacy Policy, we collect personal information from your interactions with us and our website, including through cookies and similar technologies. We may also share this personal information with third parties, including advertising partners. We do this in order to show you ads on other websites that are more relevant to your interests and for other reasons outlined in our privacy policy.<br>&nbsp;<br>
+</span></div>
+<div class="box1"><span><br>Sharing of personal information for targeted advertising based on your interaction on different websites may be considered "sales", "sharing", or "targeted advertising" under certain U.S. state privacy laws. Depending on where you live, you may have the right to opt out of these activities. If you would like to exercise this opt-out right, please follow the instructions below.<br>&nbsp;<br>
+
+ </span></div>
+    <div class="box1"><span><br>If you visit our website with the Global Privacy Control opt-out preference signal enabled, depending on where you are, we will treat this as a request to opt-out of activity that may be considered a “sale” or “sharing” of personal information or other uses that may be considered targeted advertising for the device and browser you used to visit our website.</span></div>
+<div>
+  <br />
+  <div class="box2">
+<h2>If you would like to manually opt out of activity that may be considered a "sale" or "share," or "targeted advertising" and live in one of the states covered by privacy laws, please <a href="mailto:info@skinspanewyork.com?subject=Do%20Not%20Sell%20My%20Information" style="text-decoration: unset; color: #7a5f32;">submit your email</a></h2>
+</div>
+</div>
+</div>  
+</div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "do-not-sell",
+  "settings": [
+
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "video": {
+      "type": "video-archive",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "video"
+  ]
+}

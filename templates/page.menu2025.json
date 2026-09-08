@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "service_menu_2025": {
+      "type": "service_menu_2025",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "service_menu_2025"
+  ]
+}

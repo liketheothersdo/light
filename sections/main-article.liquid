@@ -1,0 +1,281 @@
+{{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
+{{ 'button-apply.css' | asset_url | stylesheet_tag }}
+
+<article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        <div class="page-width page-width--narrow">
+          {% render block %}
+        </div>
+      {%- when 'featured_image' -%}
+     
+              {%- if article.image -%}
+  <div
+    class="article-template__hero-container"
+    {{ block.shopify_attributes }}
+  >
+    <div
+      class="article-template__hero-{{ block.settings.image_height }} media"
+      itemprop="image"
+      {% if block.settings.image_height == 'adapt' %}
+        style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+      {% endif %}
+    >
+      <img
+        srcset="
+          {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+          {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+          {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+          {% if article.image.width >= 2000 %}{{ article.image | image_url: width: 2000 }} 2000w,{% endif %}
+          {{ article.image | image_url }} {{ article.image.width }}w
+        "
+        sizes="(min-width: 990px) 1200px, (min-width: 750px) calc(100vw - 10rem), 100vw"
+        src="{{ article.image | image_url: width: 1100 }}"
+        loading="eager"
+        fetchpriority="high"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
+        alt="{{ article.image.alt | escape }}"
+      >
+    </div>
+  </div>
+{%- endif -%}
+
+
+      {%- when 'title' -%}
+        <header
+          class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          <h1
+            class="article-template__title"
+            itemprop="headline"
+          >
+            {{ article.title | escape }}
+          </h1>
+          {%- if block.settings.blog_show_date -%}
+            <span class="circle-divider caption-with-letter-spacing">
+              {{- article.published_at | time_tag: format: 'date' -}}
+            </span>
+          {%- endif -%}
+        </header>
+
+      {%- when 'content' -%}
+        <div
+          class="article-template__content page-width page-width--narrow rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          itemprop="articleBody"
+          {{ block.shopify_attributes }}
+        >
+          {{ article.content }}
+        </div>
+
+      {%- when 'share' -%}
+        <div
+          class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {% assign share_url = request.origin | append: article.url %}
+          {% render 'share-button', block: block, share_link: share_url %}
+        </div>
+        {%- endcase -%}
+  {%- endfor -%}
+
+
+  {% if section.settings.show_apply %}
+  <div class="article-template__apply center">
+    {%- assign apply_button_id = 'button-apply-' | append: article.id -%}
+    {%- assign apply_button_label = section.settings.btn_aria_label | default: section.settings.btn_label -%}
+
+    {% render 'button-apply',
+      text: section.settings.btn_label,
+      url: '/pages/recruitment-form',
+      target: section.settings.btn_target,
+      class: section.settings.btn_class,
+      id: apply_button_id,
+      aria_label: apply_button_label
+    %}
+  </div>
+{% endif %}
+
+
+  <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
+      <span class="icon-wrap">{% render 'icon-arrow' %}</span>
+      {{ 'blogs.article.back_to_blog' | t: title: blog }}
+    </a>
+  </div>
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% comment %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ request.origin | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      "image": [
+        {{ article | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateModified": {{ article.modified_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }},
+      "url": {{ article.url | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "url": "https://skinspanewyork.com"
+    }
+  }
+</script>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "t:sections.main-article.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Article button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_apply",
+      "label": "Show Apply Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button label",
+      "default": "  View Position",
+      "visible_if": "{{ section.settings.show_apply }}"
+    },
+    {
+      "type": "text",
+      "id": "btn_class",
+      "label": "Button CSS classes",
+      "default": "snippet-btn btn-apply",
+      "visible_if": "{{ section.settings.show_apply}}"
+    },
+    {
+      "type": "select",
+      "id": "btn_target",
+      "label": "Open link in",
+      "default": "_self",
+      "options": [
+        {
+          "value": "_self",
+          "label": "Same tab"
+        },
+        {
+          "value": "_blank",
+          "label": "New tab"
+        }
+      ],
+      "visible_if": "{{ section.settings.show_apply }}"
+    },
+    {
+      "type": "text",
+      "id": "btn_aria_label",
+      "label": "Aria label",
+      "info": "Optional. Falls back to the button label if left blank.",
+      "visible_if": "{{ section.settings.show_apply }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "t:sections.main-article.blocks.featured_image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__1.label"
+            },
+            {
+              "value": "small",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__2.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__3.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options__4.label"
+            }
+          ],
+          "default": "adapt",
+          "label": "t:sections.main-article.blocks.featured_image.settings.image_height.label",
+          "info": "t:sections.main-article.blocks.featured_image.settings.image_height.info"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-article.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "t:sections.main-article.blocks.title.settings.blog_show_date.label"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.main-article.blocks.content.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "t:sections.main-article.blocks.share.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_label",
+          "label": "t:sections.main-article.blocks.share.settings.text.label",
+          "default": "Share"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.main-article.blocks.share.settings.featured_image_info.content"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.main-article.blocks.share.settings.title_info.content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

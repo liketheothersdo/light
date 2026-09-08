@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main-cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "color_scheme": "background-2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main-cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {
+          }
+        },
+        "termsbox_9tf9a8": {
+          "type": "termsbox",
+          "settings": {
+            "prelink_text": "I have read Skin Spa New York",
+            "link_text": "Terms & Conditions",
+            "postlink_text": "and I agree",
+            "terms_page": "terms-and-conditions-1",
+            "checkbox_scale": 1.5,
+            "mandatory": true,
+            "internal_label": "Customer agreed to terms"
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "termsbox_9tf9a8",
+        "buttons"
+      ],
+      "settings": {
+        "color_scheme": "accent-1",
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main-cart-items",
+    "main-cart-footer"
+  ]
+}
