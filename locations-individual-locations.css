@@ -1,0 +1,284 @@
+#shopify-section-template--20202254991600__locations {
+
+.section {
+  background-color: #0e0e0e;
+}
+
+.content-for-layout {
+  background-color: #0e0e0e;
+}
+
+
+#wrapper {
+  background-color: #0e0e0e;
+}
+
+.main-location {
+  font-family: 'Interstate', sans-serif;
+}
+
+.container-location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0e0e0e;
+  width: 100vw;
+  max-width: 100vw;
+  height: auto;
+  margin-left: 32%;
+  gap: 15px;
+}
+
+.city__image {
+  width: 350px;
+  max-width: 100%; 
+  height: auto;
+  position: absolute;
+  margin: 0;
+  top: 15%;
+  left: 32%;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 360px;
+  max-width: 100%;
+  height: auto;
+  opacity: 1;
+  margin-left: 48%;
+  background-color: rgba(14,14,14,.6);
+  padding: 15px;
+}
+
+.title, .address, .phone, .description {
+  margin: 10px 0; 
+  text-align: left; 
+  display: block;
+  text-decoration: unset;
+}
+
+.title {
+  font-size: 24px;
+  color: #fff;
+}
+
+.title > span {
+  font-size: 24px;
+  color: #bc9a64;
+  font-weight: 600;
+}
+
+.address {
+  font-size: 16px;
+  color: #fff;
+  cursor: help;
+}
+
+.phone a {
+  font-size: 18px;
+  font-weight: 700;
+  color: #bc9a64;
+  cursor: help;
+  text-decoration: unset;
+}
+
+.phone a:visited {
+  font-size: 18px;
+  font-weight: 700;
+  color: #cbbaa9;
+  cursor: help;
+  text-decoration: unset;
+}
+
+.description {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.4;
+  text-align: justify;
+}
+
+.btn {
+  padding: 10px 20px;
+  position: relative;
+  transition: all 1s;
+  opacity: 1;
+  background-color: #bc9a64;
+  color: #0e0e0e;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.center {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+.btn .effect {
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  text-decoration: unset;
+}
+
+.btn .effect span {
+  transition: all 0.1s ease-out;
+  text-decoration: unset;
+  font-size: 18px;
+  color: #fff;
+}
+
+.btn .effect:hover span {
+  color: #fff;
+}
+
+.btn .effect:after {
+  content: "";
+  color: #fff;
+  font-size: 18px;
+  height: 285px;
+  left: -75px;
+  opacity: 1;
+  position: absolute;
+  top: -50px;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+  width: 10px;
+  transition: all 0.7s cubic-bezier(0.75, 0.82, 0.165, 1);
+}
+
+.btn .effect:hover:after {
+  opacity: 0;
+  left: 130%;
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+}
+  
+.text-content {
+  animation: scale 2s ease-in forwards;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.8);
+  }
+  
+  100% { 
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #wrapper {
+  background-color: #0e0e0e;
+}
+
+.main-location {
+  font-family: 'Interstate', sans-serif;
+}
+
+.container-location {
+  background-color: #0e0e0e;
+  width: 100vw;
+  max-width: 100vw;
+  height: auto;
+}
+
+.city__image {
+  width: 400px;
+  max-width: 100%; 
+  height: auto;
+  position: relative;
+  margin: 0 -27%;
+}
+
+.text-content {
+  width: 340px;
+  max-width: 100%;
+  height: auto;
+  opacity: 1;
+  margin-top: 15%;
+  margin-inline: 20px;
+}
+
+.title, .address, .phone, .description {
+  margin: 5px 0; 
+  text-align: left; 
+  display: block;
+}
+
+.title {
+  font-size: 20px;
+  color: #fff;
+}
+
+.title > span {
+  font-size: 20px;
+  color: #bc9a64;
+  font-weight: 600;
+}
+
+.address {
+  font-size: 14px;
+  color: #fff;
+  cursor: help;
+}
+
+.phone {
+  font-size: 16px;
+  font-weight: 700;
+  color: #bc9a64;
+  cursor: help;
+}
+
+.description {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-align: justify;
+}
+
+button {
+  padding: 5px 10px;
+  position: relative;
+  transition: all 1s;
+  opacity: 1;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 7.5px;
+  background-color: #bc9a64;
+  text-decoration: unset;
+}
+  
+.btn-location {
+  background-color: #bc9a64;
+  color: #0e0e0e;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: unset;
+}
+
+.center {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+a.btn-location.center {
+  text-decoration: unset;
+  background-color: #bc9a64;
+}
+  
+.text-content {
+  animation: scale 2s ease-in forwards;
+  text-decoration: unset;
+}
+
+hr {
+  background-color: #0e0e0e;
+}
+}
+}
