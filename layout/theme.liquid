@@ -276,10 +276,7 @@
       }
     {% endstyle %}
 
-    {%- comment -%} CLS: preload base.css early, keep async apply so window.load fires for preloader {%- endcomment -%}
-    <link rel="preload" as="style" href="{{ 'base.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript>{{ 'base.css' | asset_url | stylesheet_tag }}</noscript>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%} Interstate fonts compiled via snippet (assets/*.liquid is served raw, not compiled) {%- endcomment -%}
     <style>{% render 'fonts-interstate' %}</style>
