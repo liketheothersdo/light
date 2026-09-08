@@ -1,0 +1,281 @@
+{% doc %}
+  @prompt
+    Create a heading with a line break between three lines of text, displaying "LIMITED TIME SPA OFFERS" on the first line, "MEMORIAL DAY WEEKEND" on the second line and "BOGO 75% OFF SALE!" on the third line. Each line can have a different font size 
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-multiline-heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.bottom_margin }}px;
+  }
+
+  .ai-multiline-heading-{{ ai_gen_id }} .line-1 {
+    display: block;
+    font-size: {{ block.settings.line_1_font_size }}px;
+    font-weight: {{ block.settings.line_1_font_weight }};
+    color: {{ block.settings.line_1_color }};
+    margin-bottom: {{ block.settings.line_spacing }}px;
+  }
+
+  .ai-multiline-heading-{{ ai_gen_id }} .line-2 {
+    display: block;
+    font-size: {{ block.settings.line_2_font_size }}px;
+    font-weight: {{ block.settings.line_2_font_weight }};
+    color: {{ block.settings.line_2_color }};
+    margin-bottom: {{ block.settings.line_spacing }}px;
+  }
+
+  .ai-multiline-heading-{{ ai_gen_id }} .line-3 {
+    display: block;
+    font-size: {{ block.settings.line_3_font_size }}px;
+    font-weight: {{ block.settings.line_3_font_weight }};
+    color: {{ block.settings.line_3_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-multiline-heading-{{ ai_gen_id }} .line-1 {
+      font-size: {{ block.settings.line_1_font_size_mobile }}px;
+    }
+
+    .ai-multiline-heading-{{ ai_gen_id }} .line-2 {
+      font-size: {{ block.settings.line_2_font_size_mobile }}px;
+    }
+
+    .ai-multiline-heading-{{ ai_gen_id }} .line-3 {
+      font-size: {{ block.settings.line_3_font_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<{{ block.settings.heading_tag }} class="ai-multiline-heading-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <span class="line-1">{{ block.settings.line_1_text }}</span>
+  <span class="line-2">{{ block.settings.line_2_text }}</span>
+  <span class="line-3">{{ block.settings.line_3_text }}</span>
+</{{ block.settings.heading_tag }}>
+
+{% schema %}
+{
+  "name": "Multiline Heading",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "line_1_text",
+      "label": "Line 1 text",
+      "default": "Line 1"
+    },
+    {
+      "type": "text",
+      "id": "line_2_text",
+      "label": "Line 2 text",
+      "default": "Line 2"
+    },
+    {
+      "type": "text",
+      "id": "line_3_text",
+      "label": "Line 3 text",
+      "default": "Line 3"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "div",
+          "label": "div"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "line_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Line spacing",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "bottom_margin",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom margin",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Line 1 Style"
+    },
+    {
+      "type": "range",
+      "id": "line_1_font_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "line_1_font_size_mobile",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "line_1_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Font weight",
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "line_1_color",
+      "label": "Text color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "header",
+      "content": "Line 2 Style"
+    },
+    {
+      "type": "range",
+      "id": "line_2_font_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "line_2_font_size_mobile",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "line_2_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Font weight",
+      "default": 800
+    },
+    {
+      "type": "color",
+      "id": "line_2_color",
+      "label": "Text color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "header",
+      "content": "Line 3 Style"
+    },
+    {
+      "type": "range",
+      "id": "line_3_font_size",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "line_3_font_size_mobile",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size (mobile)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "line_3_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Font weight",
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "line_3_color",
+      "label": "Text color",
+      "default": "#0e0e0e"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multiline Heading"
+    }
+  ]
+}
+{% endschema %}

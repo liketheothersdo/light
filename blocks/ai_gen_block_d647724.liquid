@@ -1,0 +1,366 @@
+{%- style -%}
+  #VideoBackground-{{ block.id }}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: currentColor;
+    opacity: {{ block.settings.video_overlay_opacity | divided_by: 100.0 }};
+  }
+  #VideoBackground-{{ block.id }} .video-background__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  #VideoBackground-{{ block.id }} .video-background__media video,
+  #VideoBackground-{{ block.id }} .video-background__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #VideoBackground-{{ block.id }}.video-background--small { min-height: 40rem; }
+  #VideoBackground-{{ block.id }}.video-background--medium { min-height: 55rem; }
+  #VideoBackground-{{ block.id }}.video-background--large { min-height: 70rem; }
+  #VideoBackground-{{ block.id }}.video-background--adapt { aspect-ratio: {{ block.settings.fallback_image.aspect_ratio | default: 1.77778 }}; }
+  #VideoBackground-{{ block.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+  #VideoBackground-{{ block.id }} .video-background__content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    padding: 2rem;
+    pointer-events: none;
+  }
+  #VideoBackground-{{ block.id }} .video-background__content .video-background__box { pointer-events: auto; }
+  #VideoBackground-{{ block.id }} .video-background__content--top-left { align-items: flex-start; justify-content: flex-start; }
+  #VideoBackground-{{ block.id }} .video-background__content--top-center { align-items: flex-start; justify-content: center; }
+  #VideoBackground-{{ block.id }} .video-background__content--top-right { align-items: flex-start; justify-content: flex-end; }
+  #VideoBackground-{{ block.id }} .video-background__content--middle-left { align-items: center; justify-content: flex-start; }
+  #VideoBackground-{{ block.id }} .video-background__content--middle-center { align-items: center; justify-content: center; }
+  #VideoBackground-{{ block.id }} .video-background__content--middle-right { align-items: center; justify-content: flex-end; }
+  #VideoBackground-{{ block.id }} .video-background__content--bottom-left { align-items: flex-end; justify-content: flex-start; }
+  #VideoBackground-{{ block.id }} .video-background__content--bottom-center { align-items: flex-end; justify-content: center; }
+  #VideoBackground-{{ block.id }} .video-background__content--bottom-right { align-items: flex-end; justify-content: flex-end; }
+  @media screen and (max-width: 749px) {
+    #VideoBackground-{{ block.id }}.video-background--small { min-height: 30rem; }
+    #VideoBackground-{{ block.id }}.video-background--medium { min-height: 40rem; }
+    #VideoBackground-{{ block.id }}.video-background--large { min-height: 50rem; }
+    #VideoBackground-{{ block.id }} .video-background__content { padding: 1.5rem; }
+    {%- unless block.settings.mobile_content_position == block.settings.desktop_content_position -%}
+      {%- liquid
+        assign m_align = 'center'
+        assign m_justify = 'center'
+        assign m_v = block.settings.mobile_content_position | split: '-' | first
+        assign m_h = block.settings.mobile_content_position | split: '-' | last
+        if m_v == 'top'
+          assign m_align = 'flex-start'
+        elsif m_v == 'bottom'
+          assign m_align = 'flex-end'
+        endif
+        if m_h == 'left'
+          assign m_justify = 'flex-start'
+        elsif m_h == 'right'
+          assign m_justify = 'flex-end'
+        endif
+      -%}
+      #VideoBackground-{{ block.id }} .video-background__content {
+        align-items: {{ m_align }};
+        justify-content: {{ m_justify }};
+      }
+    {%- endunless -%}
+  }
+{%- endstyle -%}
+
+<div
+  id="VideoBackground-{{ block.id }}"
+  class="video-background video-background--{{ block.settings.video_height }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if block.settings.video_url != blank -%}
+    <div class="video-background__media" aria-hidden="true">
+      <video
+        class="video-background__video"
+        {%- unless block.settings.disable_autoplay %} autoplay muted loop playsinline preload="auto"{%- else %} controls playsinline preload="metadata"{%- endunless %}
+        {% if block.settings.fallback_image != blank %}poster="{{ block.settings.fallback_image | image_url: width: 3840 }}"{% endif %}
+      >
+        <source src="{{ block.settings.video_url }}" type="video/mp4">
+      </video>
+    </div>
+  {%- elsif block.settings.fallback_image != blank -%}
+    {%- assign fallback_alt = block.settings.fallback_image.alt | escape -%}
+    <div class="video-background__media" aria-hidden="true">
+      {{
+        block.settings.fallback_image
+        | image_url: width: 3840
+        | image_tag:
+          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          alt: fallback_alt,
+          loading: 'lazy'
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="video-background__content video-background__content--{{ block.settings.desktop_content_position }}">
+    <div class="video-background__box content-container color-{{ block.settings.color_scheme }} gradient">
+      {%- if block.settings.heading != blank -%}
+        <div class="video-background__heading {{ block.settings.heading_size }}">
+          {{ block.settings.heading }}
+        </div>
+      {%- endif -%}
+      {%- if block.settings.text != blank -%}
+        <div class="video-background__text rte {{ block.settings.text_style }}">
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.button_label != blank -%}
+        <div class="video-background__buttons">
+          <a
+            {% if block.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.button_link }}"
+            {% endif %}
+            class="button"
+          >
+            {{- block.settings.button_label | escape -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Video background",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Direct .mp4 video URL used as the block background.",
+      "default": "https://cdn.shopify.com/videos/c/o/v/f17074ca0ae64d7e892317ab5bec952c.mp4"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback image",
+      "info": "Shown as poster behind the video, and as the background when no video URL is set."
+    },
+    {
+      "type": "range",
+      "id": "video_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "video_height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to video"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium",
+      "label": "Section height"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_autoplay",
+      "default": false,
+      "label": "Manual play (disable autoplay)"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "middle-center",
+      "label": "Desktop content position"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "middle-left",
+          "label": "Middle left"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "middle-center",
+      "label": "Mobile content position"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Video background",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h0",
+          "label": "H0"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Give customers details about the video background.",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_style",
+      "options": [
+        {
+          "value": "body",
+          "label": "Body"
+        },
+        {
+          "value": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "value": "caption-with-letter-spacing",
+          "label": "Caption"
+        }
+      ],
+      "default": "body",
+      "label": "Text style"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Button label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}

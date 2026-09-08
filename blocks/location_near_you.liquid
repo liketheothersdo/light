@@ -1,0 +1,901 @@
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-location-finder-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 72%;
+    padding: 40px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-location-finder-container-{{ ai_gen_id }} {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .ai-location-finder-heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 40px;
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-location-finder-columns-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .ai-location-finder-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ai-location-finder-state-{{ ai_gen_id }} {
+    font-size: {{ block.settings.state_size }}px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-location-finder-location-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-location-finder-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.location_name_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .ai-location-finder-name-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-location-finder-name-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.location_name_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-location-finder-address-{{ ai_gen_id }},
+  .ai-location-finder-phone-{{ ai_gen_id }} {
+    font-size: {{ block.settings.details_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-location-finder-address-link-{{ ai_gen_id }},
+  .ai-location-finder-phone-link-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+  }
+
+  .ai-location-finder-address-link-{{ ai_gen_id }}:hover,
+  .ai-location-finder-phone-link-{{ ai_gen_id }}:hover {
+    text-decoration: underline;
+  }
+
+  .ai-location-finder-button-wrapper-{{ ai_gen_id }} {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .ai-location-finder-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-location-finder-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-location-finder-columns-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-location-finder-{{ ai_gen_id }} {
+      padding: 30px 15px;
+    }
+
+    .ai-location-finder-columns-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .ai-location-finder-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+      margin-bottom: 30px;
+    }
+  }
+{% endstyle %}
+
+<location-finder-{{ ai_gen_id }}
+  class="ai-location-finder-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-location-finder-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-location-finder-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-location-finder-columns-{{ ai_gen_id }}">
+      <div class="ai-location-finder-column-{{ ai_gen_id }}">
+        {% if block.settings.state_1 != blank %}
+          <div class="ai-location-finder-state-{{ ai_gen_id }} {{block.settings.heading_tag}}">{{ block.settings.state_1 }}</div>
+        {% endif %}
+
+        {% if block.settings.location_1_1_name != blank %}
+          <div class="ai-location-finder-location-{{ ai_gen_id }}">
+            {% if block.settings.location_1_1_name_url != blank %}
+              <a
+                href="{{ block.settings.location_1_1_name_url }}"
+                class="ai-location-finder-name-{{ ai_gen_id }}"
+              >
+                {{ block.settings.location_1_1_name }}
+              </a>
+            {% else %}
+              <div class="ai-location-finder-name-text-{{ ai_gen_id }}">{{ block.settings.location_1_1_name }}</div>
+            {% endif %}
+            {% if block.settings.location_1_1_address != blank %}
+              <p class="ai-location-finder-address-{{ ai_gen_id }}">
+                {% if block.settings.location_1_1_address_url != blank %}
+                  <a
+                    href="{{ block.settings.location_1_1_address_url }}"
+                    class="ai-location-finder-address-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_1_address }}
+                  </a>
+                {% else %}
+                  {{ block.settings.location_1_1_address }}
+                {% endif %}
+              </p>
+            {% endif %}
+            {% if block.settings.location_1_1_phone != blank %}
+              <p class="ai-location-finder-phone-{{ ai_gen_id }}">
+                {% if block.settings.location_1_1_phone_url != blank %}
+                  <a
+                    href="{{ block.settings.location_1_1_phone_url }}"
+                    class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_1_phone }}
+                  </a>
+                {% else %}
+                  <a
+                    href="tel:{{ block.settings.location_1_1_phone | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' }}"
+                    class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_1_phone }}
+                  </a>
+                {% endif %}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.location_1_2_name != blank %}
+          <div class="ai-location-finder-location-{{ ai_gen_id }}">
+            {% if block.settings.location_1_2_name_url != blank %}
+              <a
+                href="{{ block.settings.location_1_2_name_url }}"
+                class="ai-location-finder-name-{{ ai_gen_id }}"
+              >
+                {{ block.settings.location_1_2_name }}
+              </a>
+            {% else %}
+              <div class="ai-location-finder-name-text-{{ ai_gen_id }}">{{ block.settings.location_1_2_name }}</div>
+            {% endif %}
+            {% if block.settings.location_1_2_address != blank %}
+              <p class="ai-location-finder-address-{{ ai_gen_id }}">
+                {% if block.settings.location_1_2_address_url != blank %}
+                  <a
+                    href="{{ block.settings.location_1_2_address_url }}"
+                    class="ai-location-finder-address-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_2_address }}
+                  </a>
+                {% else %}
+                  {{ block.settings.location_1_2_address }}
+                {% endif %}
+              </p>
+            {% endif %}
+            {% if block.settings.location_1_2_phone != blank %}
+              <p class="ai-location-finder-phone-{{ ai_gen_id }}">
+                {% if block.settings.location_1_2_phone_url != blank %}
+                  <a
+                    href="{{ block.settings.location_1_2_phone_url }}"
+                    class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_2_phone }}
+                  </a>
+                {% else %}
+                  <a
+                    href="tel:{{ block.settings.location_1_2_phone | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' }}"
+                    class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.location_1_2_phone }}
+                  </a>
+                {% endif %}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-location-finder-column-{{ ai_gen_id }}">
+        {% if block.settings.state_2 != blank %}
+          <div class="ai-location-finder-state-{{ ai_gen_id }}" style="font-size: 1.3rem;">{{ block.settings.state_2 }}</div>
+        {% endif %}
+
+        {% for i in (1..3) %}
+          {% liquid
+            assign name_key = 'location_2_' | append: i | append: '_name'
+            assign name_url_key = 'location_2_' | append: i | append: '_name_url'
+            assign address_key = 'location_2_' | append: i | append: '_address'
+            assign address_url_key = 'location_2_' | append: i | append: '_address_url'
+            assign phone_key = 'location_2_' | append: i | append: '_phone'
+            assign phone_url_key = 'location_2_' | append: i | append: '_phone_url'
+
+            assign location_name = block.settings[name_key]
+            assign location_name_url = block.settings[name_url_key]
+            assign location_address = block.settings[address_key]
+            assign location_address_url = block.settings[address_url_key]
+            assign location_phone = block.settings[phone_key]
+            assign location_phone_url = block.settings[phone_url_key]
+          %}
+
+          {% if location_name != blank %}
+            <div class="ai-location-finder-location-{{ ai_gen_id }}">
+              {% if location_name_url != blank %}
+                <a
+                  href="{{ location_name_url }}"
+                  class="ai-location-finder-name-{{ ai_gen_id }}"
+                >
+                  {{ location_name }}
+                </a>
+              {% else %}
+                <div class="ai-location-finder-name-text-{{ ai_gen_id }}">{{ location_name }}</div>
+              {% endif %}
+              {% if location_address != blank %}
+                <p class="ai-location-finder-address-{{ ai_gen_id }}">
+                  {% if location_address_url != blank %}
+                    <a
+                      href="{{ location_address_url }}"
+                      class="ai-location-finder-address-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_address }}
+                    </a>
+                  {% else %}
+                    {{ location_address }}
+                  {% endif %}
+                </p>
+              {% endif %}
+              {% if location_phone != blank %}
+                <p class="ai-location-finder-phone-{{ ai_gen_id }}">
+                  {% if location_phone_url != blank %}
+                    <a
+                      href="{{ location_phone_url }}"
+                      class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_phone }}
+                    </a>
+                  {% else %}
+                    <a
+                      href="tel:{{ location_phone | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' }}"
+                      class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_phone }}
+                    </a>
+                  {% endif %}
+                </p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="ai-location-finder-column-{{ ai_gen_id }}">
+        {% if block.settings.state_3 != blank %}
+          <div class="ai-location-finder-state-{{ ai_gen_id }}" style="font-size: 1.3rem;">{{ block.settings.state_3 }}</div>
+        {% endif %}
+
+        {% for i in (1..5) %}
+          {% liquid
+            assign name_key = 'location_3_' | append: i | append: '_name'
+            assign name_url_key = 'location_3_' | append: i | append: '_name_url'
+            assign address_key = 'location_3_' | append: i | append: '_address'
+            assign address_url_key = 'location_3_' | append: i | append: '_address_url'
+            assign phone_key = 'location_3_' | append: i | append: '_phone'
+            assign phone_url_key = 'location_3_' | append: i | append: '_phone_url'
+
+            assign location_name = block.settings[name_key]
+            assign location_name_url = block.settings[name_url_key]
+            assign location_address = block.settings[address_key]
+            assign location_address_url = block.settings[address_url_key]
+            assign location_phone = block.settings[phone_key]
+            assign location_phone_url = block.settings[phone_url_key]
+          %}
+
+          {% if location_name != blank %}
+            <div class="ai-location-finder-location-{{ ai_gen_id }}">
+              {% if location_name_url != blank %}
+                <a
+                  href="{{ location_name_url }}"
+                  class="ai-location-finder-name-{{ ai_gen_id }}"
+                >
+                  {{ location_name }}
+                </a>
+              {% else %}
+                <div class="ai-location-finder-name-text-{{ ai_gen_id }}">{{ location_name }}</div>
+              {% endif %}
+              {% if location_address != blank %}
+                <p class="ai-location-finder-address-{{ ai_gen_id }}">
+                  {% if location_address_url != blank %}
+                    <a
+                      href="{{ location_address_url }}"
+                      class="ai-location-finder-address-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_address }}
+                    </a>
+                  {% else %}
+                    {{ location_address }}
+                  {% endif %}
+                </p>
+              {% endif %}
+              {% if location_phone != blank %}
+                <p class="ai-location-finder-phone-{{ ai_gen_id }}">
+                  {% if location_phone_url != blank %}
+                    <a
+                      href="{{ location_phone_url }}"
+                      class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_phone }}
+                    </a>
+                  {% else %}
+                    <a
+                      href="tel:{{ location_phone | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' }}"
+                      class="ai-location-finder-phone-link-{{ ai_gen_id }}"
+                    >
+                      {{ location_phone }}
+                    </a>
+                  {% endif %}
+                </p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if block.settings.button_label != blank and block.settings.button_url != blank %}
+      <div class="ai-location-finder-button-wrapper-{{ ai_gen_id }}">
+        <a
+          href="{{ block.settings.button_url }}"
+          class="ai-location-finder-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_label }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</location-finder-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LocationFinder{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('location-finder-{{ ai_gen_id }}', LocationFinder{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Find a location near you",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find a Skin Spa New York location near you"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Column 1"
+    },
+    {
+      "type": "text",
+      "id": "state_1",
+      "label": "State name",
+      "default": "Florida"
+    },
+    {
+      "type": "text",
+      "id": "location_1_1_name",
+      "label": "Location 1 name"
+    },
+    {
+      "type": "url",
+      "id": "location_1_1_name_url",
+      "label": "Location 1 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_1_1_address",
+      "label": "Location 1 address"
+    },
+    {
+      "type": "url",
+      "id": "location_1_1_address_url",
+      "label": "Location 1 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_1_1_phone",
+      "label": "Location 1 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_1_1_phone_url",
+      "label": "Location 1 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_1_2_name",
+      "label": "Location 2 name"
+    },
+    {
+      "type": "url",
+      "id": "location_1_2_name_url",
+      "label": "Location 2 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_1_2_address",
+      "label": "Location 2 address"
+    },
+    {
+      "type": "url",
+      "id": "location_1_2_address_url",
+      "label": "Location 2 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_1_2_phone",
+      "label": "Location 2 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_1_2_phone_url",
+      "label": "Location 2 phone link"
+    },
+    {
+      "type": "header",
+      "content": "Column 2"
+    },
+    {
+      "type": "text",
+      "id": "state_2",
+      "label": "State name",
+      "default": "Massachusetts"
+    },
+    {
+      "type": "text",
+      "id": "location_2_1_name",
+      "label": "Location 1 name"
+    },
+    {
+      "type": "url",
+      "id": "location_2_1_name_url",
+      "label": "Location 1 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_2_1_address",
+      "label": "Location 1 address"
+    },
+    {
+      "type": "url",
+      "id": "location_2_1_address_url",
+      "label": "Location 1 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_2_1_phone",
+      "label": "Location 1 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_2_1_phone_url",
+      "label": "Location 1 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_2_2_name",
+      "label": "Location 2 name"
+    },
+    {
+      "type": "url",
+      "id": "location_2_2_name_url",
+      "label": "Location 2 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_2_2_address",
+      "label": "Location 2 address"
+    },
+    {
+      "type": "url",
+      "id": "location_2_2_address_url",
+      "label": "Location 2 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_2_2_phone",
+      "label": "Location 2 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_2_2_phone_url",
+      "label": "Location 2 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_2_3_name",
+      "label": "Location 3 name"
+    },
+    {
+      "type": "url",
+      "id": "location_2_3_name_url",
+      "label": "Location 3 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_2_3_address",
+      "label": "Location 3 address"
+    },
+    {
+      "type": "url",
+      "id": "location_2_3_address_url",
+      "label": "Location 3 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_2_3_phone",
+      "label": "Location 3 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_2_3_phone_url",
+      "label": "Location 3 phone link"
+    },
+    {
+      "type": "header",
+      "content": "Column 3"
+    },
+    {
+      "type": "text",
+      "id": "state_3",
+      "label": "State name",
+      "default": "New York"
+    },
+    {
+      "type": "text",
+      "id": "location_3_1_name",
+      "label": "Location 1 name",
+      "default": "Skin Spa Flatiron"
+    },
+    {
+      "type": "url",
+      "id": "location_3_1_name_url",
+      "label": "Location 1 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_1_address",
+      "label": "Location 1 address"
+    },
+    {
+      "type": "url",
+      "id": "location_3_1_address_url",
+      "label": "Location 1 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_1_phone",
+      "label": "Location 1 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_3_1_phone_url",
+      "label": "Location 1 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_2_name",
+      "label": "Location 2 name",
+      "default": "Skin Spa MidEast"
+    },
+    {
+      "type": "url",
+      "id": "location_3_2_name_url",
+      "label": "Location 2 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_2_address",
+      "label": "Location 2 address"
+    },
+    {
+      "type": "url",
+      "id": "location_3_2_address_url",
+      "label": "Location 2 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_2_phone",
+      "label": "Location 2 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_3_2_phone_url",
+      "label": "Location 2 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_3_name",
+      "label": "Location 3 name",
+      "default": "Skin Spa Midtown"
+    },
+    {
+      "type": "url",
+      "id": "location_3_3_name_url",
+      "label": "Location 3 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_3_address",
+      "label": "Location 3 address"
+    },
+    {
+      "type": "url",
+      "id": "location_3_3_address_url",
+      "label": "Location 3 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_3_phone",
+      "label": "Location 3 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_3_3_phone_url",
+      "label": "Location 3 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_4_name",
+      "label": "Location 4 name",
+      "default": "Skin Spa UWS"
+    },
+    {
+      "type": "url",
+      "id": "location_3_4_name_url",
+      "label": "Location 4 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_4_address",
+      "label": "Location 4 address"
+    },
+    {
+      "type": "url",
+      "id": "location_3_4_address_url",
+      "label": "Location 4 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_4_phone",
+      "label": "Location 4 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_3_4_phone_url",
+      "label": "Location 4 phone link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_5_name",
+      "label": "Location 5 name"
+    },
+    {
+      "type": "url",
+      "id": "location_3_5_name_url",
+      "label": "Location 5 name link"
+    },
+    {
+      "type": "textarea",
+      "id": "location_3_5_address",
+      "label": "Location 5 address"
+    },
+    {
+      "type": "url",
+      "id": "location_3_5_address_url",
+      "label": "Location 5 address link"
+    },
+    {
+      "type": "text",
+      "id": "location_3_5_phone",
+      "label": "Location 5 phone"
+    },
+    {
+      "type": "url",
+      "id": "location_3_5_phone_url",
+      "label": "Location 5 phone link"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Book Now"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link",
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#a98a5a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#a98a5a"
+    },
+    {
+      "type": "range",
+      "id": "state_size",
+      "label": "State name size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "location_name_size",
+      "label": "Location name size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "details_size",
+      "label": "Details size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Find a location near you"
+    }
+  ]
+}
+{% endschema %}

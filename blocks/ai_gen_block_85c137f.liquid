@@ -1,0 +1,538 @@
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ block.settings.section_height }}px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-video-banner__video-wrapper-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .ai-video-banner__video-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-video-banner__placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .ai-video-banner__placeholder-img-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-video-banner__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .ai-video-banner__content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: {{ block.settings.content_max_width }}px;
+    width: 100%;
+  }
+
+  .ai-video-banner__heading1-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color1 }};
+    font-size: {{ block.settings.text_size1 }}px;
+    text-align: center;
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .ai-video-banner__heading2-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color2 }};
+    font-size: {{ block.settings.text_size2 }}px;
+    text-align: center;
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+
+  .ai-video-banner__heading3-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color3 }};
+    font-size: {{ block.settings.text_size3 }}px;
+    text-align: center;
+    margin: 0 0 32px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .ai-video-banner__code-{{ ai_gen_id }} {
+    color: {{ block.settings.code_color }};
+    font-size: {{ block.settings.code_size }}px;
+    text-align: center;
+    text-decoration: unset;
+  }
+
+  .ai-video-banner__code-{{ ai_gen_id }} a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ai-video-banner__buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+
+  .ai-video-banner__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: {{ block.settings.button_text_size }}px;
+    text-decoration: none;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-weight: 600;
+  }
+
+  .ai-video-banner__button--button-1-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text_color }};
+    border: 1px solid {{ block.settings.button_border }};
+  }
+
+  .ai-video-banner__button--button-1-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+    border-color: {{ block.settings.button_border_hover }};
+  }
+
+  .ai-video-banner__button--button-2-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text_color }};
+    border: 1px solid {{ block.settings.button_border }};
+  }
+
+  .ai-video-banner__button--button-2-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+    border-color: {{ block.settings.button_border_hover }};
+  }
+
+  .ai-video-banner__button--button-3-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text_color }};
+    border: 1px solid {{ block.settings.button_border }};
+  }
+
+  .ai-video-banner__button--button-3-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+    color: {{ block.settings.button_hover_text }};
+    border-color: {{ block.settings.button_border_hover }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-banner-{{ ai_gen_id }} {
+      min-height: {{ block.settings.section_height | times: 0.7 }}px;
+    }
+
+    .ai-video-banner__heading1-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size1 | times: 0.7 }}px;
+    }
+
+    .ai-video-banner__heading2-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size2 | times: 0.7 }}px;
+    }
+
+    .ai-video-banner__heading3-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size3 | times: 0.9 }}px;
+    }
+
+    .ai-video-banner__content-{{ ai_gen_id }} {
+      padding: 30px 16px;
+    }
+
+    .ai-video-banner__buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ai-video-banner__button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-video-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.video %}
+    <div class="ai-video-banner__video-wrapper-{{ ai_gen_id }}">
+      <video
+        class="ai-video-banner__video-{{ ai_gen_id }}"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+      >
+        {% for source in block.settings.video.sources %}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      </video>
+    </div>
+  {% else %}
+    <div class="ai-video-banner__placeholder-{{ ai_gen_id }}">
+      {% if block.settings.image_fallback %}
+        {{
+          block.settings.image_fallback
+          | image_url: width: 2000
+          | image_tag:
+            class: 'ai-video-banner__placeholder-img-' | append: ai_gen_id,
+            alt: 'Fallback image',
+            loading: 'lazy'
+        }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-video-banner__overlay-{{ ai_gen_id }}"></div>
+
+  <div class="ai-video-banner__content-{{ ai_gen_id }}">
+    
+    {% if block.settings.heading1 != blank %}
+      <div class="ai-video-banner__heading1-{{ ai_gen_id }}">
+        {{ block.settings.heading1 }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.heading2 != blank %}
+      <div class="ai-video-banner__heading2-{{ ai_gen_id }}">
+        {{ block.settings.heading2 }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.heading3 != blank %}
+      <p class="ai-video-banner__heading3-{{ ai_gen_id }}">
+        {{ block.settings.heading3 }}
+        {% if block.settings.code_text != blank %}
+          <span class="ai-video-banner__code-{{ ai_gen_id }}">
+            &nbsp;<a href="/discount/{{ block.settings.code_text }}">{{ block.settings.code_text }}</a>
+          </span>
+        {% endif %}
+      </p>
+    {% endif %}
+
+    <div class="ai-video-banner__buttons-{{ ai_gen_id }}">
+      {% if block.settings.button_1_text != blank %}
+        <a
+          href="{{ block.settings.button_1_url }}"
+          class="ai-video-banner__button-{{ ai_gen_id }} ai-video-banner__button--button-1-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_1_text }}
+        </a>
+      {% endif %}
+
+      {% if block.settings.button_2_text != blank %}
+        <a
+          href="{{ block.settings.button_2_url }}"
+          class="ai-video-banner__button-{{ ai_gen_id }} ai-video-banner__button--button-2-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_2_text }}
+        </a>
+      {% endif %}
+
+      {% if block.settings.button_3_text != blank %}
+        <a
+          href="{{ block.settings.button_3_url }}"
+          class="ai-video-banner__button-{{ ai_gen_id }} ai-video-banner__button--button-3-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_3_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const video = document.querySelector('.ai-video-banner__video-{{ ai_gen_id }}');
+    if (video) {
+      video.play().catch(function(error) {
+        console.log('Video autoplay prevented:', error);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Video banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 300,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "label": "Section height",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Image fallback"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_fallback",
+      "label": "Image fallback"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 800
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading1",
+      "label": "Heading 1"
+    },
+    {
+      "type": "color",
+      "id": "text_color1",
+      "label": "Heading 1 color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "text_size1",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading 1 size",
+      "default": 48
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading2",
+      "label": "Heading 2"
+    },
+    {
+      "type": "color",
+      "id": "text_color2",
+      "label": "Heading 2 color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "text_size2",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading 2 size",
+      "default": 36
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Heading 3",
+      "id": "heading3"
+    },
+    {
+      "type": "color",
+      "id": "text_color3",
+      "label": "Heading 3 color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "text_size3",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading 3 size",
+      "default": 18
+    },
+    {
+      "type": "inline_richtext",
+      "label": "Code",
+      "id": "code_text"
+    },
+    {
+      "type": "range",
+      "id": "code_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Code size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "code_color",
+      "label": "Code color",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 text",
+      "default": "Book now"
+    },
+    {
+      "type": "url",
+      "id": "button_1_url",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 text",
+      "default": "Services"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "text",
+      "id": "button_3_text",
+      "label": "Button 3 text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_3_url",
+      "label": "Button 3 link"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#bc9a64"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Button border",
+      "default": "#a98a5a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button hover background",
+      "default": "#a98a5a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_hover",
+      "label": "Button border hover",
+      "default": "#a98a5a"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Banner"
+    }
+  ]
+}
+{% endschema %}

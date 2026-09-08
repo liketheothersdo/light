@@ -1,0 +1,681 @@
+{% doc %}
+  @prompt
+    Create a blog post template with the same structure as existing blog posts but add author_name next to the date below the article title. At the end of the article, add author_name, author_picture, and author_bio. Include customizable settings for the article title, content, publication date, author name, author picture, author bio, and any other relevant blog post elements like tags or categories. Make it fully customizable so merchants can easily update all author and article information.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+
+  .ai-blog-post-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.content_padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-blog-post-header-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.header_spacing }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-blog-post-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_margin }}px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .ai-blog-post-meta-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: {{ block.settings.meta_size }}px;
+    color: {{ block.settings.meta_color }};
+    margin-bottom: {{ block.settings.meta_margin }}px;
+  }
+
+  .ai-blog-post-date-{{ ai_gen_id }} {
+    font-weight: 500;
+  }
+
+  .ai-blog-post-author-{{ ai_gen_id }} {
+    font-weight: 500;
+  }
+
+  .ai-blog-post-separator-{{ ai_gen_id }} {
+    width: 1px;
+    height: 16px;
+    background-color: {{ block.settings.meta_color }};
+    opacity: 0.3;
+  }
+
+  .ai-blog-post-tags-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: {{ block.settings.tags_margin }}px;
+  }
+
+  .ai-blog-post-tag-{{ ai_gen_id }} {
+    padding: 4px 12px;
+    background-color: {{ block.settings.tag_background }};
+    color: {{ block.settings.tag_text_color }};
+    border-radius: {{ block.settings.tag_border_radius }}px;
+    font-size: {{ block.settings.tag_size }}px;
+    text-decoration: none;
+    border: 1px solid {{ block.settings.tag_border_color }};
+  }
+
+  .ai-blog-post-tag-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.tag_hover_background }};
+  }
+
+  .ai-blog-post-featured-image-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.image_margin }}px;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-blog-post-featured-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-blog-post-image-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    aspect-ratio: 16/ 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-blog-post-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+    opacity: 0.3;
+  }
+
+  .ai-blog-post-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+  }
+
+  .ai-blog-post-content-{{ ai_gen_id }} {
+    font-size: {{ block.settings.content_size }}px;
+    line-height: {{ block.settings.content_line_height }};
+    color: {{ block.settings.content_color }};
+    margin-bottom: {{ block.settings.content_margin }}px;
+  }
+
+  .ai-blog-post-content-{{ ai_gen_id }} p {
+    margin-bottom:16px;
+  }
+
+  .ai-blog-post-content-{{ ai_gen_id }} h2,
+  .ai-blog-post-content-{{ ai_gen_id }} h3,
+  .ai-blog-post-content-{{ ai_gen_id }} h4
+   {
+    margin: 24px 0 16px;color: {{ block.settings.title_color }};
+  }
+
+  .ai-blog-post-author-section-{{ ai_gen_id }} {
+    border-top: 1px solid {{ block.settings.author_border_color }};
+    padding-top: {{ block.settings.author_section_padding }}px;
+    margin-top: {{ block.settings.author_section_margin }}px;
+  }
+
+  .ai-blog-post-author-card-{{ ai_gen_id }} {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .ai-blog-post-author-image-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.author_image_size }}px;
+    height: {{ block.settings.author_image_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+
+  .ai-blog-post-author-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-blog-post-author-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+  }
+
+  .ai-blog-post-author-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-blog-post-author-info-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-blog-post-author-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.author_name_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 8px;
+  }
+
+  .ai-blog-post-author-bio-{{ ai_gen_id }} {
+    font-size: {{ block.settings.author_bio_size }}px;
+    line-height: 1.5;
+    color: {{ block.settings.content_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-blog-post-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding | times: 0.7 }}px;
+    }
+
+    .ai-blog-post-meta-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: flex-start;gap: 8px;
+    }
+
+    .ai-blog-post-separator-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-blog-post-author-card-{{ ai_gen_id }} {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+
+    .ai-blog-post-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<article class="ai-blog-post-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <header class="ai-blog-post-header-{{ ai_gen_id }}">
+    {% if block.settings.article_title != blank %}
+      <h1 class="ai-blog-post-title-{{ ai_gen_id }}">{{ block.settings.article_title }}</h1>
+    {% endif %}<div class="ai-blog-post-meta-{{ ai_gen_id }}">
+      {% if block.settings.publication_date != blank %}
+        <time class="ai-blog-post-date-{{ ai_gen_id }}" datetime="{{ block.settings.publication_date }}">
+          {{ block.settings.publication_date | date: "%B %d, %Y" }}
+        </time>
+      {% endif %}
+
+      {% if block.settings.publication_date != blank and block.settings.author_name != blank %}
+        <div class="ai-blog-post-separator-{{ ai_gen_id }}"></div>
+      {% endif %}
+
+      {% if block.settings.author_name != blank %}
+        <span class="ai-blog-post-author-{{ ai_gen_id }}">By {{ block.settings.author_name }}</span>
+      {% endif %}
+    </div>
+
+    {% if block.settings.tags != blank %}
+      <div class="ai-blog-post-tags-{{ ai_gen_id }}">
+        {% assign tag_list = block.settings.tags | split: ',' %}
+        {% for tag in tag_list %}
+          {% assign trimmed_tag = tag | strip %}
+          {% if trimmed_tag != blank %}
+            <span class="ai-blog-post-tag-{{ ai_gen_id }}">{{ trimmed_tag }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  {% if block.settings.featured_image %}
+    <div class="ai-blog-post-featured-image-{{ ai_gen_id }}"><img
+        src="{{ block.settings.featured_image | image_url: width: 1200 }}"
+        alt="{{ block.settings.featured_image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.featured_image.width }}"
+        height="{{ block.settings.featured_image.height }}"
+      >
+    </div>
+  {% else %}
+    <div class="ai-blog-post-image-placeholder-{{ ai_gen_id }}">
+      {{ 'image' | placeholder_svg_tag }}
+      <div class="ai-blog-post-empty-state-{{ ai_gen_id }}">
+        Add a featured image
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.article_content != blank %}
+    <div class="ai-blog-post-content-{{ ai_gen_id }}">
+      {{ block.settings.article_content }}
+    </div>
+  {% endif %}
+
+  {% if block.settings.author_name != blank or block.settings.author_bio != blank %}
+    <footer class="ai-blog-post-author-section-{{ ai_gen_id }}">
+      <div class="ai-blog-post-author-card-{{ ai_gen_id }}">
+        <div class="ai-blog-post-author-image-{{ ai_gen_id }}">
+          {% if block.settings.author_picture %}
+            <img
+              src="{{ block.settings.author_picture | image_url: width: 200 }}"
+              alt="{{ block.settings.author_name | escape }}"
+              loading="lazy"
+              width="200"
+              height="200"
+            >
+          {% else %}
+            <div class="ai-blog-post-author-image-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-blog-post-author-info-{{ ai_gen_id }}">
+          {% if block.settings.author_name != blank %}
+            <div class="h3 ai-blog-post-author-name-{{ ai_gen_id }}">{{ block.settings.author_name }}</div>
+          {% endif %}
+
+          {% if block.settings.author_bio != blank %}
+            <div class="ai-blog-post-author-bio-{{ ai_gen_id }}">
+              {{ block.settings.author_bio }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </footer>
+  {% endif %}
+</article>
+
+{% schema %}
+{
+  "name": "Blog post template",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Article content"
+    },
+    {
+      "type": "text",
+      "id": "article_title",
+      "label": "Article title",
+      "default": "Your Blog Post Title"
+    },
+    {
+      "type": "richtext",
+      "id": "article_content",
+      "label": "Article content",
+      "default": "<p>Write your blog post content here. You can include multiple paragraphs, headings, and formatted text to create engaging articles for your readers.</p><p>This template provides a professional layout that matches standard blog post structures while giving you full control over the content and styling.</p>"
+    },
+    {
+      "type": "text",
+      "id": "publication_date",
+      "label": "Publication date",
+      "info": "Format: YYYY-MM-DD (e.g., 2024-01-15)"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured image"
+    },
+    {
+      "type": "text",
+      "id": "tags",
+      "label": "Tags",
+      "info": "Separate multiple tags with commas",
+      "placeholder": "lifestyle, tips, news"
+    },
+    {
+      "type": "header",
+      "content": "Author information"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Author name",
+      "default": "Author Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "author_picture",
+      "label": "Author picture"
+    },
+    {
+      "type": "richtext",
+      "id": "author_bio",
+      "label": "Author bio",
+      "default": "<p>Write a brief bio about the author here. This helps readers connect with the person behind the content.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout settings"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Content size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_line_height",
+      "min": 1.2,
+      "max": 2.0,
+      "step": 0.1,
+      "label": "Content line height",
+      "default": 1.6
+    },
+    {
+      "type": "range",
+      "id": "meta_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Meta text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "author_name_size",
+      "min": 16,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Author name size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "author_bio_size",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Author bio size",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Meta text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "author_border_color",
+      "label": "Author section border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Tag styling"
+    },
+    {
+      "type": "range",
+      "id": "tag_size",
+      "min": 11,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Tag size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tag_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Tag border radius",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "tag_background",
+      "label": "Tag background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "tag_text_color",
+      "label": "Tag text",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "tag_border_color",
+      "label": "Tag border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "tag_hover_background",
+      "label": "Tag hover background",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Header spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Title margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "meta_margin",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Meta margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tags_margin",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Tags margin",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "image_margin",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Image margin",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "content_margin",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Content margin",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "author_section_margin",
+      "min": 30,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Author section margin",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "author_section_padding",
+      "min": 20,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Author section padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "author_image_size",
+      "min": 60,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Author image size",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog post template"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}
