@@ -1,0 +1,164 @@
+.tk-interstate { font-family: "interstate", "interstate-fallback", sans-serif; }
+
+.clearfix {
+  *zoom: 1; 
+  }
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both; 
+  }
+
+.gateway {
+  background: #ffffff;
+  position: relative; 
+  min-height: 2.5rem;
+  }
+@media screen and (max-width: 800px) {
+  .gateway {
+    min-height: 5rem;
+  } 
+}
+.gateway .gateway-nav {
+    margin: 0; 
+    padding-left: 0;
+  }
+.gateway .gateway-nav li {
+    display: inline-block;
+    list-style-type: none;
+    margin-bottom: 0;
+    position: relative; 
+  }
+
+@media screen and (max-width: 800px) {
+  .gateway .gateway-nav li {
+    width: 48%;
+    text-align: center; 
+  } 
+}
+.gateway .gateway-nav li.tes {
+        position: absolute !important;
+        top: 5px;
+        right: 0; 
+}
+
+@media screen and (max-width: 800px) {
+  .gateway .gateway-nav li.tes {
+    width: 48%;
+    text-align: center;
+    position: relative !important;
+    top: unset;
+    right: unset; 
+  } 
+}
+      
+.gateway .gateway-nav li:first-child {
+    background-color: #bc9a64;
+  }
+.gateway .gateway-nav li:first-child a {
+    color: #0e0e0e; 
+  }
+.gateway .gateway-nav li:first-child a:hover, .gateway .gateway-nav li:first-child a:active, .gateway .gateway-nav li:first-child a:focus {
+    color: #ffffff; 
+  }
+.gateway .gateway-nav li:first-child.site-nav--active a {
+    color: #ffffff; 
+  }
+.gateway .gateway-nav li.site-nav--active a {
+    color: #bc9a64; 
+  }
+.gateway .gateway-nav li a {
+    color: #0e0e0e;
+    font-size: 1em;
+    line-height: 1.5rem;
+    padding: 0 40px;
+    font-family: "interstate", "interstate-fallback", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: unset;
+    text-transform: uppercase; 
+  }
+
+@media screen and (max-width: 480px) {
+  .gateway .gateway-nav li a {
+      padding: 0 8px;
+      text-decoration: unset;
+      font-size: 0.9821428571em; 
+  } 
+}
+        
+.gateway .gateway-nav li a:hover, .gateway .gateway-nav li a:focus, .gateway .gateway-nav li a:active {
+    color: #bc9a64; 
+    text-decoration: unset;
+}
+.gateway .gateway-nav .site-nav__dropdown {
+    background-color: #ffffff;
+    width: auto !important;
+    position: absolute; 
+  }
+.gateway .gateway-nav .site-nav__dropdown li {
+    display: block; 
+  }
+.gateway .gateway-nav .site-nav__dropdown li:first-child {
+      background-color: #ffffff; 
+  }
+.gateway .gateway-nav .site-nav__dropdown li.site-nav--active a {
+      color: #bc9a64 !important; 
+      text-decoration: unset;
+  }
+.gateway .gateway-nav .site-nav__dropdown li a {
+      background-color: #ffffff;
+      color: #0e0e0e;
+      white-space: nowrap; 
+      text-decoration: unset;
+  }
+.gateway .gateway-nav .site-nav__dropdown li a:hover, .gateway .gateway-nav .site-nav__dropdown li a:active, .gateway .gateway-nav .site-nav__dropdown li a:focus {
+      color: #bc9a64; 
+      text-decoration: unset;
+  }
+
+.page-location .gateway .gateway-nav #locations > a {
+      color: #bc9a64; 
+  }
+
+/*================ Dropdowns ================*/
+.site-nav li.site-nav--has-dropdown:nth-child(4) .site-nav__dropdown,
+.site-nav li.site-nav--has-dropdown:nth-child(5) .site-nav__dropdown, .site-nav--mobile li.site-nav--has-dropdown:nth-child(4) .site-nav__dropdown,
+.site-nav--mobile li.site-nav--has-dropdown:nth-child(5) .site-nav__dropdown {
+  left: unset;
+  right: 0; }
+
+.site-nav__dropdown {
+  display: none;
+  font-size: 0.9821428571em;
+  left: 0;
+  margin: 0 auto;
+  z-index: 5;
+  background-color: #fff;
+  padding: 0 20px;
+  width: 60%; 
+  }
+.site-nav__dropdown .nav-wrap {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 5px solid #ffffff; 
+  }
+.supports-no-touch .site-nav--has-dropdown:hover .site-nav__dropdown, .site-nav--has-dropdown.nav-hover .site-nav__dropdown, .nav-focus + .site-nav__dropdown {
+    display: block; 
+  }
+.site-nav__dropdown li {
+    text-align: left;
+    padding-bottom: 10px; 
+  }
+.site-nav__dropdown a {
+    background-color: #fff;
+    white-space: normal;
+    border-bottom: none;
+    padding: 0; 
+    text-overflow: ellipsis;
+    text-decoration: unset;
+  }
+.site-nav__dropdown a:hover, .site-nav__dropdown a:active, .site-nav__dropdown a:focus {
+      background-color: #fff;
+      text-decoration: unset;
+  }

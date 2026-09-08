@@ -1,0 +1,102 @@
+.list-menu--right {
+  right: 0;
+}
+
+.list-menu--disclosure {
+  position: absolute;
+  min-width: 100%;
+  width: 20rem;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+}
+
+.list-menu--disclosure:focus {
+  outline: none;
+}
+
+.list-menu__item--active {
+  text-decoration: unset;
+}
+
+.list-menu__item--active:hover {
+  text-decoration: unset;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.list-menu--disclosure.localization-selector {
+  max-height: 18rem;
+  overflow: auto;
+  width: 10rem;
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 749px) {
+  .list-menu--disclosure:not(.localization-selector) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem 1.2rem;
+    padding: 1rem;
+  }
+
+  .list-menu--disclosure .list-menu__item--link {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+.footer-menu-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 2rem;
+  align-items: start;
+}
+
+.footer-menu-split .footer-block__details-content {
+  margin-bottom: 0;
+}
+
+.footer-menu-split .list-menu__item--link {
+  display: block;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+}
+
+@media screen and (max-width: 749px) {
+  .footer-menu-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+
+.footer-menu-heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.footer-menu-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2rem;
+  align-items: start;
+}
+
+.footer-menu-split .footer-block__details-content {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.footer-menu-split .list-menu__item--link {
+  display: block;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+}

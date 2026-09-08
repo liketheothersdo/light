@@ -1,0 +1,8 @@
+/*
+ * NOTE: Font faces formerly defined here are centralized in assets/interstate.css
+ * (self-hosted Interstate, single global origin). This file kept to avoid
+ * breaking asset references; it now only re-exports the tk helper classes.
+ * @font-face / adobe-caslon-pro removed.
+ */
+
+.tk-interstate { font-family: "interstate", "interstate-fallback", sans-serif; }

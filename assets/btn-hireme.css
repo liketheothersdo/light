@@ -1,0 +1,174 @@
+ :root {
+  --transition-duration: 0.45s;
+  --transition-ease: cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+.snippet-btn,
+.snippet-btn *,
+.snippet-btn *::before,
+.snippet-btn *::after {
+  box-sizing: border-box;
+}
+
+.snippet-btn.btn-hireme {
+  position: relative;
+  display: inline-block;
+  width: 18rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  vertical-align: middle;
+}
+
+.snippet-btn.btn-hireme .circle {
+  position: relative;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  border-radius: 1.625rem;
+  background: #bc9a64;
+  transition: all var(--transition-duration) var(--transition-ease);
+}
+
+.snippet-btn.btn-hireme .icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #ffffff;
+  transition: all var(--transition-duration) var(--transition-ease);
+}
+
+.snippet-btn.btn-hireme .icon.arrow {
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.snippet-btn.btn-hireme .icon.arrow::before {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #ffffff;
+  border-right: 0.125rem solid #ffffff;
+  transform: rotate(45deg);
+}
+
+.snippet-btn.btn-hireme .button-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all var(--transition-duration) var(--transition-ease);
+  pointer-events: none;
+}
+
+.snippet-btn.btn-hireme:hover .circle {
+  width: 100%;
+}
+
+.snippet-btn.btn-hireme:hover .circle .icon.arrow {
+  background: #ffffff;
+  transform: translate(1rem, 0);
+}
+
+.snippet-btn.btn-hireme:hover .button-text {
+  color: #ffffff;
+}
+
+
+.snippet-btn.apply {
+  position: relative;
+  display: inline-block;
+  width: 18rem;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  vertical-align: middle;
+}
+
+.snippet-btn.apply .circle {
+  position: relative;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  border-radius: 1.625rem;
+  background: #bc9a64;
+  transition: all var(--transition-duration) var(--transition-ease);
+}
+
+.snippet-btn.apply .icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #ffffff;
+  transition: all var(--transition-duration) var(--transition-ease);
+}
+
+.snippet-btn.apply .icon.arrow {
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.snippet-btn.apply .icon.arrow::before {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #ffffff;
+  border-right: 0.125rem solid #ffffff;
+  transform: rotate(45deg);
+}
+
+.snippet-btn.apply .apply-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all var(--transition-duration) var(--transition-ease);
+  pointer-events: none;
+}
+
+.snippet-btn.apply:hover .circle {
+  width: 100%;
+}
+
+.snippet-btn.apply:hover .circle .icon.arrow {
+  background: #ffffff;
+  transform: translate(1rem, 0);
+}
+
+.snippet-btn.apply:hover .apply-text {
+  color: #ffffff;
+}

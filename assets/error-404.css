@@ -1,0 +1,286 @@
+#page-error-404 {
+  --bg: #0e0e0e;
+  --text: #0e0e0e;
+  --shadow-1: #f7f5f6;
+  --shadow-2: #cbbaa9;
+  --shadow-3: #bc9a64;
+  --accent: #bc9a64;
+  --glitch-a: #00e6f6;
+  --glitch-b: #ff013c;
+  --glitch-c: #f8f005;
+
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+#page-error-404 .error-404__bg {
+  background-image: url("https://cdn.shopify.com/s/files/1/0071/6197/0758/files/error404-bg.jpg?v=1754688497");
+  background-size: cover;
+  background-position: center;
+  min-height: 82vh;
+  display: grid;
+  place-items: center;
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+#page-error-404 .error-404__bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 14, 14, 0.4);
+}
+
+#page-error-404 .error-404 {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 70rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#page-error-404 .error-404__eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+#page-error-404 .error-404__title {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+#page-error-404 .error-404__title span {
+  display: inline-block;
+  font-size: clamp(3.8rem, 10vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+}
+
+#page-error-404 .error-404__copy {
+  margin: 2rem auto 0;
+  max-width: 50rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 2;
+}
+
+#page-error-404 .error-404__copy span {
+  display: inline-block;
+  margin-right: 0.35em;
+}
+
+#page-error-404 .error-404__eyebrow,
+#page-error-404 .error-404__title span,
+#page-error-404 .error-404__copy span {
+  animation: error-404 4.4395345s ease infinite var(--delay);
+  --radius: 36px;
+  --angle: 20rad;
+  --delay: 0s;
+  color: var(--text) !important;
+  text-shadow:
+    calc(var(--radius) * sin(calc(var(--angle) + 0rad)))
+    calc(var(--radius) * cos(calc(var(--angle) + 0rad)))
+    0 var(--shadow-1),
+    calc(var(--radius) * sin(calc(var(--angle) + 2.0943951024rad)))
+    calc(var(--radius) * cos(calc(var(--angle) + 2.0943951024rad)))
+    0 var(--shadow-2),
+    calc(var(--radius) * sin(calc(var(--angle) + 4.1887902048rad)))
+    calc(var(--radius) * cos(calc(var(--angle) + 4.1887902048rad)))
+    0 var(--shadow-3);
+}
+
+#page-error-404 .error-404__copy span {
+  --radius: 26px;
+}
+
+#page-error-404 .error-404__title span:nth-child(1) {
+  --radius: 54px;
+}
+
+#page-error-404 .error-404__title span:nth-child(2) {
+  --radius: 60px;
+}
+
+#page-error-404 .error-404__actions {
+  margin-top: 2.5rem;
+}
+
+#page-error-404 .error-404__button,
+#page-error-404 .error-404__button::after {
+  min-width: 220px;
+  padding: 16px 24px;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 0;
+  outline: transparent;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(45deg, transparent 5%, var(--accent) 5%);
+  box-shadow: 6px 0 0 #fff;
+}
+
+#page-error-404 .error-404__button::after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+
+  content: "Go Back";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(45deg, transparent 3%, var(--glitch-a) 3%, var(--glitch-a) 5%, var(--glitch-b) 5%);
+  text-shadow: -3px -3px 0 var(--glitch-c), 3px 3px 0 var(--glitch-a);
+  clip-path: var(--slice-0);
+}
+
+#page-error-404 .error-404__button:hover::after,
+#page-error-404 .error-404__button:focus-visible::after {
+  animation: glitch 1s steps(2, end);
+}
+
+@property --radius {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0rad;
+}
+
+@keyframes error-404 {
+  0% {
+    --radius: -50px;
+    --angle: 0rad;
+  }
+  16% {
+    --radius: -18px;
+    --angle: 1.05rad;
+  }
+  32% {
+    --radius: 14px;
+    --angle: 2.1rad;
+  }
+  48% {
+    --radius: 38px;
+    --angle: 3.14rad;
+  }
+  64% {
+    --radius: 52px;
+    --angle: 4.18rad;
+  }
+  80% {
+    --radius: 10px;
+    --angle: 5.23rad;
+  }
+  100% {
+    --radius: -49px;
+    --angle: 6.28rad;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  #page-error-404 .error-404__bg {
+    min-height: 72vh;
+    padding: 3rem 1rem;
+  }
+
+  #page-error-404 .error-404__title {
+    gap: 0.5rem;
+  }
+
+  #page-error-404 .error-404__title span:nth-child(1),
+  #page-error-404 .error-404__title span:nth-child(2) {
+    --radius: 42px;
+  }
+
+  #page-error-404 .error-404__copy {
+    line-height: 1.8;
+  }
+
+  #page-error-404 .error-404__copy span {
+    --radius: 34px;
+  }
+
+  #page-error-404 .error-404__button,
+  #page-error-404 .error-404__button::after {
+    min-width: 190px;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-error-404 .error-404__eyebrow,
+  #page-error-404 .error-404__title span,
+  #page-error-404 .error-404__copy span,
+  #page-error-404 .error-404__button:hover::after,
+  #page-error-404 .error-404__button:focus-visible::after {
+    animation: none !important;
+  }
+}
